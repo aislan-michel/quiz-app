@@ -1,24 +1,8 @@
-﻿@model Question
-
-@{
-    ViewData["Title"] = "Quiz";
+﻿@{
+    ViewData["Title"] = "Start Game";
     Layout = "_Layout";
 }
 
-<h2>@Model.Text</h2>
-
-<form asp-action="SendAnswer" method="post">
-  <div class="row">
-    @foreach (var answer in @Model.PossibleAnswers)
-    {
-      <div class="col-sm-6 p-1">
-        <div class="card">
-          <div class="card-body">
-            <p class="card-text">@answer.Answer</p>
-            <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer">Correct</button>
-          </div>
-        </div>
-      </div> 
-    }
-  </div>      
-</form>            
+<div class="align-content-center">
+    <a class="btn btn-primary" asp-controller="Quiz" asp-action="Question">Get me questions</a>
+</div>         

@@ -1,0 +1,12 @@
+﻿@model Score
+
+@{
+    ViewBag.Title = "Score";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Value</h2>
+
+<div class="align-content-center">
+    <a class="btn btn-primary" asp-controller="Quiz" asp-action="Reset">Reset</a>
+</div>        

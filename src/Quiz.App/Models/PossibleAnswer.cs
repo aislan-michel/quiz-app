@@ -1,6 +1,6 @@
 ﻿namespace Quiz.App.Models
 {
-    public class PossibleAnswer
+    public class PossibleAnswer : BaseModel
     {
         public PossibleAnswer(string answer, bool isAnswer)
         {
