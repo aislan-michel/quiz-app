@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Factories;
@@ -14,11 +15,21 @@ namespace Quiz.App.Controllers
         //TODO: transform score in a class
         private static int _score = 0;
         private static int _index = 0;
+        private static DateTime _start;
+        private static DateTime _end;
+        private static TimeSpan TimeDiff => _end - _start;
         
         // GET
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult StartGame()
+        {
+            _start = DateTime.UtcNow;
+            
+            return RedirectToAction(nameof(Question));
         }
 
         public IActionResult Question()
@@ -49,13 +60,17 @@ namespace Quiz.App.Controllers
 
         public IActionResult Score()
         {
-            return View(new Score(_score));
+            return View(new Score(_score, TimeDiff));
         }
 
         public IActionResult Reset()
         {
             _score = 0;
             _index = 0;
+
+            _end = DateTime.UtcNow;
+
+            var timeDiff = _end - _start;
 
             return RedirectToAction(nameof(Index));
         }

@@ -5,8 +5,9 @@
     Layout = "_Layout";
 }
 
-<h2>@Model.Value</h2>
+<h2>Your score: @Model.Value</h2>
+<h2>Time to finish: @Model.TimeToFinish ms</h2>
 
 <div class="align-content-center">
-    <a class="btn btn-primary" asp-controller="Quiz" asp-action="Reset">Reset</a>
+    <a class="btn btn-primary" asp-controller="Quiz" asp-action="Reset">Reset game</a>
 </div>        
