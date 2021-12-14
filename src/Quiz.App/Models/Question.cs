@@ -12,8 +12,8 @@ namespace Quiz.App.Models
             Index = index;
         }
 
-        public string Text { get; private set; }
-        public List<PossibleAnswer> PossibleAnswers { get; private set; }
+        public string Text { get; }
+        public List<PossibleAnswer> PossibleAnswers { get; }
         public int Index { get; }
         
         public bool IsCorrectAnswer(string answer)

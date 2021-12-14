@@ -7,8 +7,10 @@ namespace Quiz.App.Models
         protected BaseModel()
         {
             Id = Guid.NewGuid();
+            CreatedAt = DateTime.UtcNow;
         }
         
-        public Guid Id { get; private set; }
+        public Guid Id { get; }
+        public DateTime CreatedAt { get; }
     }
 }

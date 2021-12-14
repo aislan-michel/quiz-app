@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Factories;
@@ -17,7 +16,7 @@ namespace Quiz.App.Controllers
         private static int _index = 0;
         private static DateTime _start;
         private static DateTime _end;
-        private static TimeSpan TimeDiff => _end - _start;
+        private static TimeSpan TimeDiff =>  _end - _start;
         
         // GET
         public IActionResult Index()
@@ -67,10 +66,7 @@ namespace Quiz.App.Controllers
         {
             _score = 0;
             _index = 0;
-
             _end = DateTime.UtcNow;
-
-            var timeDiff = _end - _start;
 
             return RedirectToAction(nameof(Index));
         }

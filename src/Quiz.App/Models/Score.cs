@@ -10,8 +10,7 @@ namespace Quiz.App.Models
             TimeToFinish = Convert.ToInt32(timeDiff.Milliseconds);
         }
         
-        public int Value { get; private set; }
-        public int TimeToFinish { get; private set; }
-        
+        public int Value { get; }
+        public int TimeToFinish { get; }
     }
 }

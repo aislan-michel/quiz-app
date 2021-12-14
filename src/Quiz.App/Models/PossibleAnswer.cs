@@ -8,7 +8,7 @@
             IsAnswer = isAnswer;
         }
         
-        public string Answer { get; private set; }
-        public bool IsAnswer { get; private set; }
+        public string Answer { get; }
+        public bool IsAnswer { get; }
     }
 }
