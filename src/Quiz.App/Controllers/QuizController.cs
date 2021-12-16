@@ -58,7 +58,7 @@ namespace Quiz.App.Controllers
 
         public IActionResult Score()
         {
-            return View(new Score(_score, TimeDiff));
+            return View(new Score(_score, TimeDiff, Guid.NewGuid()));
         }
 
         public IActionResult Reset()
