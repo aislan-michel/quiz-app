@@ -25,7 +25,9 @@ namespace Quiz.App.Controllers
 
         public IActionResult StartGame()
         {
-            _start = DateTime.UtcNow;
+            _start = DateTime.Now;
+
+            Console.WriteLine(_start);
             
             return RedirectToAction(nameof(Question));
         }
@@ -58,6 +60,16 @@ namespace Quiz.App.Controllers
 
         public IActionResult Score()
         {
+            Console.WriteLine("start {0}", _start);
+            Console.WriteLine("end: {0}", _end);
+            
+            Console.WriteLine("seconds {0}", _start.Second);
+            Console.WriteLine("seconds {0}", _end.Second);
+
+            var timeDiff = _end.Second - _start.Second;
+
+            Console.WriteLine("seconds to finish {0}", timeDiff);
+            
             return View(new Score(_score, TimeDiff, Guid.NewGuid()));
         }
 
@@ -65,7 +77,7 @@ namespace Quiz.App.Controllers
         {
             _score = 0;
             _index = 0;
-            _end = DateTime.UtcNow;
+            _end = DateTime.Now;
 
             return RedirectToAction(nameof(Index));
         }

@@ -40,3 +40,8 @@ D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Quiz.App.genruntimeconfig
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Quiz.App.csproj.CopyComplete
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Razor\Views\Quiz\Question.cshtml.g.cs
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Razor\Views\Quiz\Score.cshtml.g.cs
+D:\dev\Projetos\quiz-app\src\Quiz.App\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\dev\Projetos\quiz-app\src\Quiz.App\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\dev\Projetos\quiz-app\src\Quiz.App\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\dev\Projetos\quiz-app\src\Quiz.App\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\staticwebassets\Quiz.App.StaticWebAssets.xml

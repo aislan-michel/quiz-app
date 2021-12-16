@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quiz.App.Infrastructure;
 
 namespace Quiz.App
 {
@@ -24,6 +25,13 @@ namespace Quiz.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<QuizDbContext>(options =>
+            {
+                var connection = @"";
+                
+                //Decidir qual banco usar
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
