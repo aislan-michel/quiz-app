@@ -4,15 +4,20 @@ namespace Quiz.App.Models
 {
     public class Score : BaseModel
     {
-        public Score(int value, TimeSpan timeDiff)
+        protected Score() { }
+        
+        public Score(int value, TimeSpan timeDiff, Guid userId)
         {
             Value = value;
             TimeToFinish = timeDiff.Seconds;
             Passed = Value > 2;
+            UserId = userId;
         }
         
         public int Value { get; }
         public int TimeToFinish { get; }
         public bool Passed { get; }
+        public Guid UserId { get; }
+        public User User { get; private set; }
     }
 }

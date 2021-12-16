@@ -1,14 +1,21 @@
-﻿namespace Quiz.App.Models
+﻿using System;
+
+namespace Quiz.App.Models
 {
     public class PossibleAnswer : BaseModel
     {
-        public PossibleAnswer(string answer, bool isAnswer)
+        protected PossibleAnswer() { }
+        
+        public PossibleAnswer(string answer, bool isAnswer, Guid questionId)
         {
             Answer = answer;
             IsAnswer = isAnswer;
+            QuestionId = questionId;
         }
         
         public string Answer { get; }
         public bool IsAnswer { get; }
+        public Guid QuestionId { get; set; }
+        public Question Question { get; set; }
     }
 }

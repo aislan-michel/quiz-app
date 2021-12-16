@@ -5,6 +5,8 @@ namespace Quiz.App.Models
 {
     public class Question : BaseModel
     {
+        protected Question() { }
+        
         public Question(string text, List<PossibleAnswer> possibleAnswers, int index) : base()
         {
             Text = text;
