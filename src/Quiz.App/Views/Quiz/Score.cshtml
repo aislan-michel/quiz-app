@@ -5,9 +5,28 @@
     Layout = "_Layout";
 }
 
-<h2>Your score: @Model.Value</h2>
-<h2>Time to finish: @Model.TimeToFinish ms</h2>
+<div class="alert alert-primary" role="alert">
+    Your score: @Model.Value
+</div>
 
-<div class="align-content-center">
+<div class="alert alert-secondary" role="alert">
+    Time to finish: @Model.TimeToFinish seconds
+</div>
+
+@if (@Model.Passed)
+{
+    <div class="alert alert-success" role="alert">
+        You Passed!
+    </div>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        You failure.
+    </div>
+}
+
+<div class="align-content-center mt-2">
     <a class="btn btn-primary" asp-controller="Quiz" asp-action="Reset">Reset game</a>
 </div>        
+

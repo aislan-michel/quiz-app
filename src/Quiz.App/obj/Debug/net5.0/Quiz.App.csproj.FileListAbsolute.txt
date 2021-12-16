@@ -38,7 +38,5 @@ D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\ref\Quiz.App.dll
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Quiz.App.pdb
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Quiz.App.genruntimeconfig.cache
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Quiz.App.csproj.CopyComplete
-D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Razor\Views\Quiz\Correct.cshtml.g.cs
-D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Razor\Views\Quiz\Incorrect.cshtml.g.cs
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Razor\Views\Quiz\Question.cshtml.g.cs
 D:\dev\Projetos\quiz-app\src\Quiz.App\obj\Debug\net5.0\Razor\Views\Quiz\Score.cshtml.g.cs

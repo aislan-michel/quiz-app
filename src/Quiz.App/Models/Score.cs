@@ -7,10 +7,12 @@ namespace Quiz.App.Models
         public Score(int value, TimeSpan timeDiff)
         {
             Value = value;
-            TimeToFinish = Convert.ToInt32(timeDiff.Milliseconds);
+            TimeToFinish = timeDiff.Seconds;
+            Passed = Value > 2;
         }
         
         public int Value { get; }
         public int TimeToFinish { get; }
+        public bool Passed { get; }
     }
 }

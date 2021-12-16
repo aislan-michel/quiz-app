@@ -11,14 +11,13 @@ namespace Quiz.App.Controllers
     public class QuizController : Controller
     {
         private static readonly IEnumerable<Question> Questions = QuestionFactory.GenerateList();
-        //TODO: transform score in a class
-        private static int _score = 0;
-        private static int _index = 0;
+        private static int _score;
+        private static int _index;
         private static DateTime _start;
         private static DateTime _end;
-        private static TimeSpan TimeDiff =>  _end - _start;
         
-        // GET
+        private static TimeSpan TimeDiff => _end - _start;
+        
         public IActionResult Index()
         {
             return View();
