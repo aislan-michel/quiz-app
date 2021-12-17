@@ -11,6 +11,8 @@ namespace Quiz.App.Infrastructure.Configurations
             
             builder.Property(x => x.Name);
             builder.Property(x => x.LastName);
+            builder.Property(x => x.Password);
+            builder.Property(x => x.Login);
 
             builder
                 .HasMany(x => x.Scores)

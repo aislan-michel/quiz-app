@@ -10,6 +10,7 @@ namespace Quiz.App.Infrastructure.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.CreatedAt);
+            builder.Property(x => x.Active);
         }
     }
 }
