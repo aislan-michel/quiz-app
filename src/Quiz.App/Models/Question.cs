@@ -27,5 +27,30 @@ namespace Quiz.App.Models
         {
             return PossibleAnswers.FirstOrDefault(x => x.IsAnswer)?.Answer;
         }
+
+        public bool HaveAnswers()
+        {
+            if (PossibleAnswers == null)
+            {
+                return false;
+            }
+
+            if (!PossibleAnswers.Any())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int CountAnswers()
+        {
+            if (!HaveAnswers())
+            {
+                return 0;
+            }
+
+            return PossibleAnswers.Count;
+        }
     }
 }

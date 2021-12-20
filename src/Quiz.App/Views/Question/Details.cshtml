@@ -1,0 +1,25 @@
+﻿@model Question
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Layout";
+    var haveAnswers = @Model.HaveAnswers();
+}
+
+<ul class="list-group">
+    <li class="list-group-item">Text: @Model.Text</li>
+    <li class="list-group-item">Position: @Model.Index</li>
+</ul>
+
+@if (haveAnswers)
+{
+    @foreach (var answer in @Model.PossibleAnswers)
+    {
+        <ul class="list-group mt-2">
+            <li class="list-group-item">@answer</li>
+        </ul>        
+    }
+}
+
+<a class="btn btn-secondary mt-3" asp-action="Index">Back to list</a>
+<a class="btn btn-primary mt-3" asp-controller="Answer" asp-action="Create">Add answers</a>

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Question>
+
+@{
+    ViewData["Title"] = "Questions";
+    Layout = "_Layout";
+}
+
+<a class="btn btn-primary mb-3" asp-action="Create">Add question</a>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Text</th>
+    <th scope="col">Position</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  @foreach (var question in @Model)
+  {
+    <tr>
+      <td>@question.Text</td>
+      <td>@question.Index</td>
+      <td>
+        <a class="btn btn-warning" asp-action="Details" asp-route-id="@question.Id">Details</a>
+      </td>
+    </tr> 
+  }
+  </tbody>
+</table>

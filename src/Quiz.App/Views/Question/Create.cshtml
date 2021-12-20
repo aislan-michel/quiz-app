@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "_Layout";
+}
+
+<form method="post" asp-action="Create">
+    <div class="mb-3">
+        <label class="form-label">Text</label>
+        <textarea class="form-control" name="text"></textarea>
+    </div>
+  
+    <div class="mb-3">
+        <label class="form-label">Position</label>
+        <input type="number" class="form-control" name="index">
+    </div>
+    
+    @*
+  
+    @for (var i = 0; i <= 3; i++)
+    {
+        <div class="mb-3">
+            <div class="mb-3">
+                <label class="form-label">Answer @Html.Raw(i + 1)</label>
+                <textarea class="form-control" name="answers[@i]"></textarea>
+            </div>
+        </div> 
+    }
+  
+    <div class="mb-3">
+        <label class="form-label">Correct answer</label>
+        <input type="number" max="4" class="form-control" name="correctAnswer">
+    </div>*@
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
