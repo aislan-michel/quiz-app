@@ -5,4 +5,24 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<a class="btn btn-primary mb-3" asp-action="Create">Add category</a>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  @foreach (var category in @Model)
+  {
+    <tr>
+      <td>@category.Name</td>
+      <td>
+        <a class="btn btn-warning">Details</a>
+      </td>
+    </tr> 
+  }
+  </tbody>
+</table>
