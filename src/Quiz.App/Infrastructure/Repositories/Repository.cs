@@ -25,6 +25,11 @@ namespace Quiz.App.Infrastructure.Repositories
             _dbSet.Add(entity);
         }
 
+        public void AddRange(IEnumerable<T> entities)
+        {
+            _dbSet.AddRange(entities);
+        }
+
         public void Remove(T entity)
         {
             _dbSet.Remove(entity);

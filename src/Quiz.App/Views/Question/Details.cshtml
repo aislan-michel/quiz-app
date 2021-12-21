@@ -13,13 +13,17 @@
 
 @if (haveAnswers)
 {
+    <ul class="list-group mt-4">
+        <li class="list-group-item">Answers</li>
+    
+    
     @foreach (var answer in @Model.PossibleAnswers)
     {
-        <ul class="list-group mt-2">
-            <li class="list-group-item">@answer</li>
-        </ul>        
+        <li class="list-group-item @answer.IsAnswer ? 'bg-success' : ''">@answer.Answer</li>        
     }
+    
+    </ul>
 }
 
 <a class="btn btn-secondary mt-3" asp-action="Index">Back to list</a>
-<a class="btn btn-primary mt-3" asp-controller="Answer" asp-action="Create">Add answers</a>
+<a class="btn btn-primary mt-3" @(Model.CountAnswers() == 4 ? "disabled" : "") asp-controller="Answer" asp-action="Create" asp-route-questionId="@Model.Id">Add answers</a>

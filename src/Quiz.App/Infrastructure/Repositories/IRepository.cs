@@ -11,6 +11,8 @@ namespace Quiz.App.Infrastructure.Repositories
     public interface IRepository<T> where T : BaseModel
     {
         void Add(T entity);
+
+        void AddRange(IEnumerable<T> entities);
         
         void Remove(T entity);
         

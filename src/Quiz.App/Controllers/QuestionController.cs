@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
@@ -27,7 +28,9 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Details(Guid id)
         {
-            return View(await _repository.GetByIdAsync(id));
+            var question = await _repository.FirstAsync(x => x.Id == id, x => x.Include(y => y.PossibleAnswers));
+            
+            return View(question);
         }
 
         [HttpGet]
