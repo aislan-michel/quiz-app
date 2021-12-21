@@ -15,7 +15,7 @@ namespace Quiz.App.Models
         
         public string Answer { get; }
         public bool IsAnswer { get; }
-        public Guid QuestionId { get; set; }
-        public Question Question { get; set; }
+        public Guid QuestionId { get; private set; }
+        public Question Question { get; private set; }
     }
 }

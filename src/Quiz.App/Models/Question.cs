@@ -16,7 +16,7 @@ namespace Quiz.App.Models
         }
 
         public string Text { get; }
-        public List<PossibleAnswer> PossibleAnswers { get; }
+        public IReadOnlyCollection<PossibleAnswer> PossibleAnswers { get; }
         public int Index { get; }
         public Guid CategoryId { get; private set; }
         public Category Category { get; private set; }

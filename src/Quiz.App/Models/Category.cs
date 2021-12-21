@@ -13,6 +13,6 @@ namespace Quiz.App.Models
         }
         
         public string Name { get; private set; }
-        public List<Question> Questions { get; private set; }
+        public IReadOnlyCollection<Question> Questions { get; private set; }
     }
 }
