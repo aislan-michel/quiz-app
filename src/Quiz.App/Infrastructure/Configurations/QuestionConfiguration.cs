@@ -17,6 +17,8 @@ namespace Quiz.App.Infrastructure.Configurations
                 .HasForeignKey(x => x.QuestionId);
 
             builder.Property(x => x.Index);
+            
+            base.Configure(builder);
         }
     }
 }

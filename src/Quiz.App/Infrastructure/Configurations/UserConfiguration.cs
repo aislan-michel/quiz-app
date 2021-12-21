@@ -18,6 +18,8 @@ namespace Quiz.App.Infrastructure.Configurations
                 .HasMany(x => x.Scores)
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
+            
+            base.Configure(builder);
         }
     }
 }

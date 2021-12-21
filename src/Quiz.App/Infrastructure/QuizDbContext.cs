@@ -15,6 +15,7 @@ namespace Quiz.App.Infrastructure
         public DbSet<Question> Questions { get; set; }
         public DbSet<Score> Scores { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace Quiz.App.Infrastructure
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new ScoreConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             
             base.OnModelCreating(modelBuilder);
         }

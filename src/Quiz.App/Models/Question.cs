@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Quiz.App.Models
@@ -17,6 +18,8 @@ namespace Quiz.App.Models
         public string Text { get; }
         public List<PossibleAnswer> PossibleAnswers { get; }
         public int Index { get; }
+        public Guid CategoryId { get; private set; }
+        public Category Category { get; private set; }
         
         public bool IsCorrectAnswer(string answer)
         {
@@ -30,27 +33,12 @@ namespace Quiz.App.Models
 
         public bool HaveAnswers()
         {
-            if (PossibleAnswers == null)
-            {
-                return false;
-            }
-
-            if (!PossibleAnswers.Any())
-            {
-                return false;
-            }
-
-            return true;
+            return PossibleAnswers != null && PossibleAnswers.Any();
         }
 
         public int CountAnswers()
         {
-            if (!HaveAnswers())
-            {
-                return 0;
-            }
-
-            return PossibleAnswers.Count;
+            return !HaveAnswers() ? 0 : PossibleAnswers.Count;
         }
     }
 }
