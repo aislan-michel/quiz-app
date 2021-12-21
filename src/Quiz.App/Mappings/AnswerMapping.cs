@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Quiz.App.InputModels;
 using Quiz.App.Models;
 
@@ -11,11 +11,11 @@ namespace Quiz.App.Mappings
         {
             var model = new List<PossibleAnswer>(4);
 
-            foreach (var answer in inputModel.Answers)
+            foreach (var answer in inputModel.Answers.Select((value, i) => new { i, value }))
             {
-                var isCorrect = answer.IndexOf(answer, StringComparison.Ordinal) == inputModel.Correct;
+                var isCorrect = (answer.i + 1) == inputModel.Correct;
                 
-                model.Add(new PossibleAnswer(answer, isCorrect, inputModel.QuestionId));
+                model.Add(new PossibleAnswer(answer.value, isCorrect, inputModel.QuestionId));
             }
 
             return model;

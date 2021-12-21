@@ -34,7 +34,7 @@ namespace Quiz.App.Controllers
 
             await _repository.SaveAsync();
 
-            return RedirectToAction("Index", "Question");
+            return RedirectToAction("Details", "Question", new { id = inputModel.QuestionId});
         }
     }
 }
