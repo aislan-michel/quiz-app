@@ -7,11 +7,12 @@
 
 <a class="btn btn-primary mb-3" asp-action="Create">Add question</a>
 
-<table class="table">
+<table class="table table-bordered">
   <thead>
   <tr>
     <th scope="col">Text</th>
     <th scope="col">Position</th>
+    <th scope="col">Category</th>
     <th scope="col">Actions</th>
   </tr>
   </thead>
@@ -21,11 +22,12 @@
     <tr>
       <td>@question.Text</td>
       <td>@question.Index</td>
+      <td>@question.Category.Name</td>
       <td>
         <a class="btn btn-info" asp-action="Details" asp-route-id="@question.Id">Details</a>
         <a class="btn btn-warning" asp-action="Update" asp-route-id="@question.Id">Edit</a>
       </td>
-    </tr> 
+    </tr>
   }
   </tbody>
 </table>

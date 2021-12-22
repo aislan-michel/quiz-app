@@ -5,6 +5,11 @@
     Layout = "_Layout";
 }
 
+<div class="mb-3">
+    <label class="form-label">Question</label>
+    <textarea class="form-control" name="text" disabled id="question-text"></textarea>
+</div>
+
 <form method="post" asp-action="Create">
 
     @for (var i = 0; i <= 3; i++)
@@ -27,3 +32,17 @@
     <button type="submit" class="btn btn-primary">Submit</button>
     
 </form>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(() => {
+            const questionId = '@Model.QuestionId';
+            
+            $.get(`/question/getText?id=${questionId}`, (data) => {
+                console.log(data.text);
+                $("#question-text").text(data.text);
+            });
+        });
+    </script>
+}

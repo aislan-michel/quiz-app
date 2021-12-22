@@ -7,10 +7,11 @@
 
 <a class="btn btn-primary mb-3" asp-action="Create">Add category</a>
 
-<table class="table">
+<table class="table table-bordered">
   <thead>
   <tr>
     <th scope="col">Name</th>
+    <th scope="col">Total of questions</th>
     <th scope="col">Actions</th>
   </tr>
   </thead>
@@ -19,6 +20,7 @@
   {
     <tr>
       <td>@category.Name</td>
+      <td>0</td>
       <td>
         <a class="btn btn-warning">Details</a>
       </td>

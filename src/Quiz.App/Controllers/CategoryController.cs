@@ -41,20 +41,17 @@ namespace Quiz.App.Controllers
 
             return RedirectToAction("Index");
         }
-        [HttpGet("category/get")]
-        public async Task<IActionResult> Get()
-        {
-            return Json(await _categoryRepository.GetDataAsync());
-        }
         
-        [HttpGet("category/get/{id:guid}")]
-        public async Task<IActionResult> Get(Guid id)
+        [HttpGet]
+        public async Task<IActionResult> Get(Guid? id)
         {
             var categories = await _categoryRepository.GetDataAsync();
 
-            var selectedCategory = categories.First(x => x.Id == id);
-
-            var selectList = new SelectList(categories.AsEnumerable(), "Id", "Name", selectedCategory.Id.ToString());
+            var selectList = new SelectList(
+                categories.AsEnumerable(), 
+                "Id", 
+                "Name", 
+                id.HasValue ? categories.First(x => x.Id == id).Id.ToString() : null);
             
             return Json(selectList);
         }

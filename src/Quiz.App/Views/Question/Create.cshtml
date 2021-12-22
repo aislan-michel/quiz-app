@@ -18,7 +18,8 @@
         <label class="form-label">Category</label>
         <select class="custom-select" name="categoryId"></select>
     </div>
-    
+
+    <a class="btn btn-secondary" asp-action="Index">Back to list</a>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
@@ -27,11 +28,13 @@
     <script>
         $(document).ready(() => {
             $.get("/category/get", (categories) => {
-                let html = `<option selected>Select one</option>`;                
+                console.log(categories)
+                
+                let html = `<option selected disabled>Select one</option>`;                
                 
                 categories.forEach(category => {
                     html += `
-                      <option value="${category.id}">${category.name}</option>
+                      <option value="${category.value}">${category.text}</option>
                     `;
                 });
                 

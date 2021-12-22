@@ -21,7 +21,8 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var questions = await _repository.GetDataAsync();
+            var questions = await _repository.GetDataAsync(
+                include: x => x.Include(y => y.Category));
             
             return View(questions.OrderBy(x => x.Index));
         }
@@ -67,7 +68,7 @@ namespace Quiz.App.Controllers
             return View(question);
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Update(Guid id, UpdateQuestionInputModel inputModel)
         {
             var model = await _repository.GetByIdAsync(id);
@@ -79,6 +80,13 @@ namespace Quiz.App.Controllers
             await _repository.SaveAsync();
             
             return RedirectToAction("Details", new {id});
+        }
+
+        public async Task<IActionResult> GetText(Guid id)
+        {
+            var question = await _repository.GetByIdAsync(id);
+
+            return Json(new {text = question.Text});
         }
     }
 }

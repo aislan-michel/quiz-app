@@ -30,10 +30,10 @@
         $(document).ready(() => {
             let id = '@Model.CategoryId';
             
-            $.get(`/category/get/${id}`, (categories) => {
+            $.get(`/category/get?id=${id}`, (categories) => {
                 console.log(categories)
                 
-                let html = ``;
+                let html = `<option selected disabled>Select one</option>`;      
                 
                 categories.forEach(category => {
                     html += `
