@@ -22,7 +22,8 @@
       <td>@question.Text</td>
       <td>@question.Index</td>
       <td>
-        <a class="btn btn-warning" asp-action="Details" asp-route-id="@question.Id">Details</a>
+        <a class="btn btn-info" asp-action="Details" asp-route-id="@question.Id">Details</a>
+        <a class="btn btn-warning" asp-action="Update" asp-route-id="@question.Id">Edit</a>
       </td>
     </tr> 
   }

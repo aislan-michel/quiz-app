@@ -1,0 +1,48 @@
+﻿@model Question
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "_Layout";
+}
+
+<form method="post" asp-action="Update" asp-route-id="@Model.Id">
+    <div class="mb-3">
+        <label class="form-label">Text</label>
+        <textarea class="form-control" name="text">@Model.Text</textarea>
+    </div>
+  
+    <div class="mb-3">
+        <label class="form-label">Position</label>
+        <input type="number" class="form-control" name="index" value="@Model.Index">
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Category</label>
+        <select class="custom-select" name="categoryId"></select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(() => {
+            let id = '@Model.CategoryId';
+            
+            $.get(`/category/get/${id}`, (categories) => {
+                console.log(categories)
+                
+                let html = ``;
+                
+                categories.forEach(category => {
+                    html += `
+                      <option value="${category.value}" ${category.selected ? 'selected' : ''}>${category.text}</option>
+                    `;
+                });
+                                
+                $(".custom-select").html(html);
+            });
+        });
+    </script>
+}

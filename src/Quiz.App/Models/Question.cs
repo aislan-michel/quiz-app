@@ -16,9 +16,9 @@ namespace Quiz.App.Models
             CategoryId = categoryId;
         }
 
-        public string Text { get; }
+        public string Text { get; private set; }
         public IReadOnlyCollection<PossibleAnswer> PossibleAnswers { get; }
-        public int Index { get; }
+        public int Index { get; private set; }
         public Guid CategoryId { get; private set; }
         public Category Category { get; private set; }
         
@@ -40,6 +40,13 @@ namespace Quiz.App.Models
         public int CountAnswers()
         {
             return !HaveAnswers() ? 0 : PossibleAnswers.Count;
+        }
+
+        public void Update(string text, int index, Guid categoryId)
+        {
+            Text = text;
+            Index = index;
+            CategoryId = categoryId;
         }
     }
 }
