@@ -38,5 +38,10 @@ namespace Quiz.App.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Get()
+        {
+            return Json(await _categoryRepository.GetDataAsync());
+        }
     }
 }

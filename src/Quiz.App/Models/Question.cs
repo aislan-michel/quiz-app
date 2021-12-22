@@ -8,11 +8,12 @@ namespace Quiz.App.Models
     {
         protected Question() { }
         
-        public Question(string text, List<PossibleAnswer> possibleAnswers, int index) : base()
+        public Question(string text, List<PossibleAnswer> possibleAnswers, int index, Guid categoryId) : base()
         {
             Text = text;
             PossibleAnswers = possibleAnswers;
             Index = index;
+            CategoryId = categoryId;
         }
 
         public string Text { get; }

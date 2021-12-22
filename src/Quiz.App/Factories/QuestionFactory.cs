@@ -16,21 +16,21 @@ namespace Quiz.App.Factories
                     new("11", false,Guid.NewGuid()),
                     new("0", false,Guid.NewGuid()),
                     new("1", false,Guid.NewGuid())
-                }, 0),
+                }, 0, Guid.NewGuid()),
                 new("Quanto é 1+2?", new List<PossibleAnswer>(4)
                 {
                     new("3", true,Guid.NewGuid()),
                     new("55", false,Guid.NewGuid()),
                     new("0", false,Guid.NewGuid()),
                     new("2", false,Guid.NewGuid())
-                }, 1),
+                }, 1, Guid.NewGuid()),
                 new("Quanto é 2+2?", new List<PossibleAnswer>(4)
                 {
                     new("4", true,Guid.NewGuid()),
                     new("36", false,Guid.NewGuid()),
                     new("10", false,Guid.NewGuid()),
                     new("1", false,Guid.NewGuid())
-                }, 2),
+                }, 2, Guid.NewGuid()),
             };
         }
     }

@@ -8,7 +8,8 @@ namespace Quiz.App.Mappings
     {
         public static Question ToModel(this CreateQuestionInputModel inputModel)
         {
-            return new Question(inputModel.Text, new List<PossibleAnswer>(4), inputModel.Index);
+            return new(
+                inputModel.Text, new List<PossibleAnswer>(4), inputModel.Index, inputModel.CategoryId);
         }
     }
 }
