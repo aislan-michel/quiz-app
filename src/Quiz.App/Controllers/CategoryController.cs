@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Infrastructure.Repositories;
+using Quiz.App.InputModels;
+using Quiz.App.Mappings;
 using Quiz.App.Models;
 
 namespace Quiz.App.Controllers
@@ -19,9 +21,22 @@ namespace Quiz.App.Controllers
             return View(await _categoryRepository.GetDataAsync());
         }
 
-        public async Task<IActionResult> Create()
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateCategoryInputModel inputModel)
+        {
+            var model = inputModel.ToModel();
+            
+            _categoryRepository.Add(model);
+
+            await _categoryRepository.SaveAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }
