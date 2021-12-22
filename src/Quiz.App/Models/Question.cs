@@ -8,7 +8,7 @@ namespace Quiz.App.Models
     {
         protected Question() { }
         
-        public Question(string text, List<PossibleAnswer> possibleAnswers, int index, Guid categoryId) : base()
+        public Question(string text, IReadOnlyCollection<PossibleAnswer> possibleAnswers, int index, Guid categoryId) : base()
         {
             Text = text;
             PossibleAnswers = possibleAnswers;
@@ -34,7 +34,17 @@ namespace Quiz.App.Models
 
         public bool HaveAnswers()
         {
-            return PossibleAnswers != null && PossibleAnswers.Any();
+            if (PossibleAnswers == null)
+            {
+                return false;
+            }
+
+            if (!PossibleAnswers.Any())
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public int CountAnswers()
