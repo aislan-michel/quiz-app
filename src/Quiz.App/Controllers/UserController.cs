@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
@@ -17,18 +18,21 @@ namespace Quiz.App.Controllers
             _repository = repository;
         }
 
-        // GET
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _repository.GetDataAsync());
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(CreateUserInputModel inputModel)
         {
             var model = inputModel.ToModel();
@@ -39,7 +43,8 @@ namespace Quiz.App.Controllers
             
             return RedirectToAction("Details", new {id = model.Id});
         }
-
+        
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(Guid id)
         {
             return View(await _repository.GetByIdAsync(id));
