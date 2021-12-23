@@ -7,26 +7,23 @@ namespace Quiz.App.Models
         protected User() { }
         
         public User(
-            string name, string lastName, List<Score> scores,
+            string firstName, string lastName,
             string password, string role)
         {
-            Name = name;
+            FirstName = firstName;
             LastName = lastName;
-            Scores = scores;
             Password = password;
+            Login = $"{FirstName.ToLower().Replace(" ", ".")}.{LastName.ToLower().Replace(" ", ".")}@game";
             Role = role;
+            Scores = new List<Score>();
         }
         
-        public string Name { get; private set; }
+        public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string Password { get; private set; }
-
-        private string _login => $"{Name.ToLower()}.{LastName.ToLower()}@game";
-
-        public string Login { get => _login; private set => Login = value; }
+        public string Login { get; private set; }
+        public string Role { get; private set; }
         
         public List<Score> Scores { get; private set; }
-
-        public string Role { get; private set; }
     }
 }

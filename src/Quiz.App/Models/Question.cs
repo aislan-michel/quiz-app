@@ -8,10 +8,10 @@ namespace Quiz.App.Models
     {
         protected Question() { }
         
-        public Question(string text, IReadOnlyCollection<PossibleAnswer> possibleAnswers, int index, Guid categoryId) : base()
+        public Question(string text, int index, Guid categoryId) : base()
         {
             Text = text;
-            PossibleAnswers = possibleAnswers;
+            PossibleAnswers = new List<PossibleAnswer>();
             Index = index;
             CategoryId = categoryId;
         }

@@ -9,10 +9,11 @@ namespace Quiz.App.Infrastructure.Configurations
         {
             base.Configure(builder);
             
-            builder.Property(x => x.Name);
+            builder.Property(x => x.FirstName);
             builder.Property(x => x.LastName);
             builder.Property(x => x.Password);
             builder.Property(x => x.Login);
+            builder.Property(x => x.Role);
 
             builder
                 .HasMany(x => x.Scores)

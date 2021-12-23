@@ -6,10 +6,10 @@ namespace Quiz.App.Models
     {
         protected Category() { }
         
-        public Category(string name, List<Question> questions)
+        public Category(string name)
         {
             Name = name;
-            Questions = questions;
+            Questions = new List<Question>();
         }
         
         public string Name { get; private set; }

@@ -8,7 +8,7 @@ namespace Quiz.App.Mappings
     {
         public static Category ToModel(this CreateCategoryInputModel inputModel)
         {
-            return new Category(inputModel.Name, new List<Question>());
+            return new Category(inputModel.Name);
         }
     }
 }
