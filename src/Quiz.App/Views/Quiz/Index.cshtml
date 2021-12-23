@@ -1,6 +1,15 @@
-﻿@{
+﻿@model IEnumerable<Category>
+
+@{
     ViewData["Title"] = "Start Game";
     Layout = "_Layout";
 }
 
-<a class="btn btn-primary" asp-controller="Quiz" asp-action="StartGame">Get me questions</a>         
+<ul class="list-group mb-4">
+    <li class="list-group-item">Choose your category</li>
+</ul>
+-
+@foreach (var category in @Model)
+{
+    <a class="btn btn-primary" asp-controller="Quiz" asp-action="StartGame" asp-route-categoryId="@category.Id">@category.Name</a>   
+}         

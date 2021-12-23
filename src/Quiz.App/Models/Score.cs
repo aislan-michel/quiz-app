@@ -10,7 +10,7 @@ namespace Quiz.App.Models
         {
             Value = value;
             TimeToFinish = timeDiff.Seconds;
-            Passed = Value > 2;
+            Passed = Value > 2; //TODO: pass the test if passed in 70% of questions
             UserId = userId;
         }
         

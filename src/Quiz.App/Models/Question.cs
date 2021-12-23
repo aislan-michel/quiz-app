@@ -24,12 +24,17 @@ namespace Quiz.App.Models
         
         public bool IsCorrectAnswer(string answer)
         {
-            return GetCorrectAnswer() == answer;
+            return GetCorrectAnswer().Answer == answer;
         }
 
-        private string GetCorrectAnswer()
+        public bool IsCorrectAnswer(Guid answerId)
         {
-            return PossibleAnswers.FirstOrDefault(x => x.IsAnswer)?.Answer;
+            return GetCorrectAnswer().Id == answerId;
+        }
+
+        private PossibleAnswer GetCorrectAnswer()
+        {
+            return PossibleAnswers.FirstOrDefault(x => x.IsAnswer);
         }
 
         public bool HaveAnswers()

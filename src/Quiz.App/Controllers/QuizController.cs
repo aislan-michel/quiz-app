@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quiz.App.Factories;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
@@ -13,35 +15,41 @@ namespace Quiz.App.Controllers
     {
         private static readonly IEnumerable<Question> _questions = QuestionFactory.GenerateList();
         private static int _score;
-        private static int _index;
+        private static int _index = 1;
         private static DateTime _start;
         private static DateTime _end;
         private readonly IRepository<Question> _questionRepository;
+        private readonly IRepository<Category> _categoryRepository;
 
-        public QuizController(IRepository<Question> questionRepository)
+        public QuizController(IRepository<Question> questionRepository, IRepository<Category> categoryRepository)
         {
             _questionRepository = questionRepository;
+            _categoryRepository = categoryRepository;
         }
 
         private static TimeSpan TimeDiff => _end - _start;
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var categories = await _categoryRepository.GetDataAsync();
+            
+            return View(categories);
         }
 
-        public IActionResult StartGame()
+        public IActionResult StartGame(Guid categoryId)
         {
             _start = DateTime.Now;
 
             Console.WriteLine(_start);
             
-            return RedirectToAction(nameof(Question));
+            return RedirectToAction("Question", new { categoryId });
         }
 
-        public IActionResult Question()
+        public async Task<IActionResult> Question(Guid categoryId)
         {
-            var question = _questions.FirstOrDefault(x => x.Index == _index);
+            var question = await _questionRepository.FirstAsync(
+                x => x.Index == _index && x.CategoryId == categoryId,
+                x => x.Include(y => y.PossibleAnswers));
 
             if (question is null)
             {
@@ -53,16 +61,18 @@ namespace Quiz.App.Controllers
             return View(question);
         }
 
-        public IActionResult SendAnswer(SendAnswer inputModel)
+        public async Task<IActionResult> SendAnswer(SendAnswer inputModel)
         {
-            var question = _questions.First(x => x.Id == inputModel.Id);
+            var question = await _questionRepository.FirstAsync(
+                x => x.Id == inputModel.Id,
+                x => x.Include(y => y.PossibleAnswers));
 
             if (question.IsCorrectAnswer(inputModel.Answer))
             {
                 _score++;
             }
 
-            return RedirectToAction(nameof(Question));
+            return RedirectToAction("Question", new{ categoryId = inputModel.CategoryId.ToString() });
         }
 
         public IActionResult Score()
