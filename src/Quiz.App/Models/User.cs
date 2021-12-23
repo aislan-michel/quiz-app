@@ -8,12 +8,13 @@ namespace Quiz.App.Models
         
         public User(
             string name, string lastName, List<Score> scores,
-            string password)
+            string password, string role)
         {
             Name = name;
             LastName = lastName;
             Scores = scores;
             Password = password;
+            Role = role;
         }
         
         public string Name { get; private set; }
@@ -25,5 +26,7 @@ namespace Quiz.App.Models
         public string Login { get => _login; private set => Login = value; }
         
         public List<Score> Scores { get; private set; }
+
+        public string Role { get; private set; }
     }
 }
