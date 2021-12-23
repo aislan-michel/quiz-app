@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Quiz.App.Factories;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Models;
@@ -13,7 +10,6 @@ namespace Quiz.App.Controllers
 {
     public class QuizController : Controller
     {
-        private static readonly IEnumerable<Question> _questions = QuestionFactory.GenerateList();
         private static int _score;
         private static int _index = 1;
         private static DateTime _start;
