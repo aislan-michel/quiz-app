@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Quiz.App.Filters;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
@@ -27,14 +26,22 @@ namespace Quiz.App.Controllers
         }
         
         [HttpPost]
-        [ModelStateFilter]
         public async Task<IActionResult> Login(LoginInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(inputModel);
+            }
+            
             var user = await _repository.FirstAsync(x => x.Login == inputModel.Login);
 
             if (user is null)
-                return BadRequest(new {message = "login or password is invalid"});
+            {
+                ModelState.AddModelError("invalid", "login or password is invalid");
 
+                return View(inputModel);
+            }
+                
             _tokenService.GenerateToken(user);
 
             return RedirectToAction("Index", "Home");
@@ -47,9 +54,13 @@ namespace Quiz.App.Controllers
         }
         
         [HttpPost]
-        [ModelStateFilter]
         public async Task<IActionResult> Register(RegisterUserInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            
             var model = inputModel.ToModel();
             
             _repository.Add(model);

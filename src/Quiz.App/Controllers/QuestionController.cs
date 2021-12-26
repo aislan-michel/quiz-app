@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Quiz.App.Filters;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
@@ -48,9 +47,13 @@ namespace Quiz.App.Controllers
         }
 
         [HttpPost]
-        [ModelStateFilter]
         public async Task<IActionResult> Create(CreateQuestionInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            
             var question = inputModel.ToModel();
             
             _repository.Add(question);

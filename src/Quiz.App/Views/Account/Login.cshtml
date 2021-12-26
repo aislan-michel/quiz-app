@@ -1,18 +1,22 @@
-﻿@{
+﻿@model Quiz.App.InputModels.LoginInputModel
+
+@{
     ViewBag.Title = "Login";
     Layout = "_Layout";
 }
 
-<form method="post" asp-action="Login">
+<form class="needs-validation" method="post" asp-action="Login">
     
     <div class="mb-3">
-        <label class="form-label">Login</label>
-        <input type="text" class="form-control" name="login">
+        @Html.LabelFor(x => x.Login, new {@class = "form-label"})
+        @Html.TextBoxFor(x => x.Login, new {@class = "form-control"})
+        @Html.ValidationMessageFor(x => x.Login, "", new {@class = "invalid-feedback"})
     </div>
     
     <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" class="form-control" name="password">
+        @Html.LabelFor(x => x.Password, new {@class = "form-label"})                   
+        @Html.PasswordFor(x => x.Password, new {@class = "form-control"})
+        @Html.ValidationMessageFor(x => x.Password, "", new {@class = "invalid-feedback"})
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
