@@ -35,6 +35,11 @@ namespace Quiz.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateCategoryInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(inputModel);
+            }
+            
             var model = inputModel.ToModel();
             
             _categoryRepository.Add(model);

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Quiz.App.Extensions;
 
 namespace Quiz.App.Models
 {
@@ -32,15 +33,14 @@ namespace Quiz.App.Models
 
         private string GenerateLogin()
         {
-            const string whiteSpace = " ";
             const char dot = '.';
 
             var login = new StringBuilder();
 
             login
-                .Append(FirstName.Contains(whiteSpace) ? FirstName.Split(whiteSpace)[0] : FirstName)
+                .Append(FirstName.ContainsWhiteSpace() ? FirstName.GetFirstWord() : FirstName)
                 .Append(dot)
-                .Append(LastName.Contains(whiteSpace) ? LastName.Split(whiteSpace)[0] : LastName)
+                .Append(LastName.ContainsWhiteSpace() ? LastName.GetFirstWord() : LastName)
                 .Append("@game");
 
             return login.ToString();

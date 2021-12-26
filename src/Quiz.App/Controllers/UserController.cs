@@ -35,6 +35,11 @@ namespace Quiz.App.Controllers
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(CreateUserInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(inputModel);
+            }
+            
             var model = inputModel.ToModel();
             
             _repository.Add(model);

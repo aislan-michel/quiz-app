@@ -32,7 +32,7 @@ namespace Quiz.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(inputModel);
             }
             
             var model = inputModel.ToModel();

@@ -51,7 +51,7 @@ namespace Quiz.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(inputModel);
             }
             
             var question = inputModel.ToModel();
@@ -78,6 +78,11 @@ namespace Quiz.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Guid id, UpdateQuestionInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(id.ToString(), inputModel);
+            }
+            
             var model = await _repository.GetByIdAsync(id);
             
             model.Update(inputModel.Text, inputModel.Index, inputModel.CategoryId);
