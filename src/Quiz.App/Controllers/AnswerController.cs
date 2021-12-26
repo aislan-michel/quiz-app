@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Quiz.App.Filters;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
@@ -20,12 +21,13 @@ namespace Quiz.App.Controllers
         [HttpGet]
         public IActionResult Create(Guid questionId)
         {
-            var inputModel = new CreateAnswerInputModel() {QuestionId = questionId};
+            var inputModel = new CreateAnswerInputModel {QuestionId = questionId};
             
             return View(inputModel);
         }
 
         [HttpPost]
+        [ModelStateFilter]
         public async Task<IActionResult> Create(CreateAnswerInputModel inputModel)
         {
             var model = inputModel.ToModel();

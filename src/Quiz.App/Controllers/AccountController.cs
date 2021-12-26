@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Quiz.App.Filters;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
+using Quiz.App.Mappings;
 using Quiz.App.Models;
 using Quiz.App.Services;
 
@@ -25,6 +27,7 @@ namespace Quiz.App.Controllers
         }
         
         [HttpPost]
+        [ModelStateFilter]
         public async Task<IActionResult> Login(LoginInputModel inputModel)
         {
             var user = await _repository.FirstAsync(x => x.Login == inputModel.Login);
@@ -35,6 +38,25 @@ namespace Quiz.App.Controllers
             var token = _tokenService.GenerateToken(user);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        [ModelStateFilter]
+        public async Task<IActionResult> Register(RegisterUserInputModel inputModel)
+        {
+            var model = inputModel.ToModel();
+            
+            _repository.Add(model);
+
+            await _repository.SaveAsync();
+            
+            return View();
         }
     }
 }

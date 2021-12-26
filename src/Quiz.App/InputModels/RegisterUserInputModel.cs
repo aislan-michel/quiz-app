@@ -3,10 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Quiz.App.InputModels
 {
-    public class LoginInputModel
+    public class RegisterUserInputModel
     {
         [Required]
-        public string Login { get; set; }
+        public string FirstName { get; set; }
+        
+        [Required]
+        public string LastName { get; set; }
         
         [Required]
         [PasswordPropertyText]
