@@ -33,9 +33,9 @@ namespace Quiz.App.Controllers
             var user = await _repository.FirstAsync(x => x.Login == inputModel.Login);
 
             if (user is null)
-                return BadRequest(new {message = "Usuário ou senha inválidos"});
+                return BadRequest(new {message = "login or password is invalid"});
 
-            var token = _tokenService.GenerateToken(user);
+            _tokenService.GenerateToken(user);
 
             return RedirectToAction("Index", "Home");
         }

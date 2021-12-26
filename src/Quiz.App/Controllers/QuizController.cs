@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Repositories;
@@ -8,6 +9,7 @@ using Quiz.App.Models;
 
 namespace Quiz.App.Controllers
 {
+    [Authorize]
     public class QuizController : Controller
     {
         private static int _score;

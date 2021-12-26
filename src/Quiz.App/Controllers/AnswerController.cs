@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Filters;
 using Quiz.App.Infrastructure.Repositories;
@@ -9,6 +10,7 @@ using Quiz.App.Models;
 
 namespace Quiz.App.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AnswerController : Controller
     {
         private readonly IRepository<PossibleAnswer> _repository;
