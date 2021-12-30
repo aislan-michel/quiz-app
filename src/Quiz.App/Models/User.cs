@@ -35,10 +35,10 @@ namespace Quiz.App.Models
             login
                 .Append(FirstName.ContainsWhiteSpace() ? FirstName.GetFirstWord() : FirstName)
                 .Append(dot)
-                .Append(LastName.ContainsWhiteSpace() ? LastName.GetFirstWord() : LastName)
+                .Append(LastName.ContainsWhiteSpace() ? LastName.GetLastWord() : LastName)
                 .Append("@game");
 
-            return login.ToString();
+            return login.ToString().ToLower();
         }
     }
 }

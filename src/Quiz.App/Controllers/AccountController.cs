@@ -21,13 +21,13 @@ namespace Quiz.App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult SignIn()
         {
             return View();
         }
         
         [HttpPost]
-        public async Task<IActionResult> Login(LoginInputModel inputModel)
+        public async Task<IActionResult> SignIn(LoginInputModel inputModel)
         {
             try
             {
@@ -35,10 +35,6 @@ namespace Quiz.App.Controllers
                 {
                     return View(inputModel);
                 }
-
-                //var user = await _userManager.FindByNameAsync(inputModel.Username);
-            
-                //await AddClaims(user);
 
                 var signInResult = await _signInManager.PasswordSignInAsync(inputModel.Username, inputModel.Password, false, false);
 
@@ -58,13 +54,11 @@ namespace Quiz.App.Controllers
             }
         }
 
-        private async Task AddClaims(User user)
+        public new async Task<IActionResult> SignOut()
         {
-            await _userManager.AddClaimsAsync(user, new[]
-            {
-                new Claim(ClaimTypes.Sid, user.Id),
-                new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName)
-            });
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction(nameof(SignIn));
         }
 
         [HttpGet]

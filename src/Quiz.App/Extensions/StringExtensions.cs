@@ -1,4 +1,6 @@
-﻿namespace Quiz.App.Extensions
+﻿using System.Linq;
+
+namespace Quiz.App.Extensions
 {
     public static class StringExtensions
     {
@@ -11,7 +13,12 @@
 
         public static string GetFirstWord(this string str)
         {
-            return str.Split(WhiteSpace)[0];
+            return str.Split(WhiteSpace).First();
+        }
+
+        public static string GetLastWord(this string str)
+        {
+            return str.Split(WhiteSpace).Last();
         }
     }
 }
