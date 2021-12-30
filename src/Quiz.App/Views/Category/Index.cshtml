@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Category>
+﻿@model IEnumerable<Quiz.App.ViewModels.CategoriesViewModel>
 
 @{
     ViewData["title"] = "Index";
@@ -20,7 +20,7 @@
   {
     <tr>
       <td>@category.Name</td>
-      <td>0</td>
+      <td>@category.TotalQuestions</td>
       <td>
         <a class="btn btn-warning">Details</a>
       </td>

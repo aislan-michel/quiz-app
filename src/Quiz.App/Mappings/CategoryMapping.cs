@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Quiz.App.InputModels;
 using Quiz.App.Models;
+using Quiz.App.ViewModels;
 
 namespace Quiz.App.Mappings
 {
@@ -8,7 +10,16 @@ namespace Quiz.App.Mappings
     {
         public static Category ToModel(this CreateCategoryInputModel inputModel)
         {
-            return new Category(inputModel.Name);
+            return new(inputModel.Name);
+        }
+
+        public static IEnumerable<CategoriesViewModel> ToViewModel(this List<Category> categories)
+        {
+            return categories.Select(x => new CategoriesViewModel()
+            {
+                Name = x.Name,
+                TotalQuestions = x.Questions.Count
+            });
         }
     }
 }

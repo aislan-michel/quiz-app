@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
@@ -23,7 +24,9 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _categoryRepository.GetDataAsync());
+            var categories = await _categoryRepository.GetDataAsync(include: x => x.Include(y => y.Questions));
+            
+            return View(categories.ToViewModel());
         }
 
         [HttpGet]
