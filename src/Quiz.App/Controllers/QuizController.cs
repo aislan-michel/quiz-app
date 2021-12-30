@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Quiz.App.Extensions;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Models;
@@ -18,11 +19,13 @@ namespace Quiz.App.Controllers
         private static DateTime _end;
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Category> _categoryRepository;
+        private readonly IRepository<Score> _scoreRepository;
 
-        public QuizController(IRepository<Question> questionRepository, IRepository<Category> categoryRepository)
+        public QuizController(IRepository<Question> questionRepository, IRepository<Category> categoryRepository, IRepository<Score> scoreRepository)
         {
             _questionRepository = questionRepository;
             _categoryRepository = categoryRepository;
+            _scoreRepository = scoreRepository;
         }
 
         private static TimeSpan TimeDiff => _end - _start;
@@ -73,7 +76,7 @@ namespace Quiz.App.Controllers
             return RedirectToAction("Question", new{ categoryId = inputModel.CategoryId.ToString() });
         }
 
-        public IActionResult Score()
+        public async Task<IActionResult> Score()
         {
             Console.WriteLine("start {0}", _start);
             Console.WriteLine("end: {0}", _end);
@@ -84,8 +87,16 @@ namespace Quiz.App.Controllers
             var timeDiff = _end.Second - _start.Second;
 
             Console.WriteLine("seconds to finish {0}", timeDiff);
+
+            var userId = User.Identity.GetId();
+
+            var score = new Score(_score, TimeDiff, userId);
             
-            return View(new Score(_score, TimeDiff, Guid.NewGuid().ToString()));
+            _scoreRepository.Add(score);
+
+            await _scoreRepository.SaveAsync();
+            
+            return View(score);
         }
 
         public IActionResult Reset()

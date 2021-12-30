@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Quiz.App.Extensions;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
 using Quiz.App.Models;
@@ -81,10 +82,7 @@ namespace Quiz.App.Controllers
 
             if (!created.Succeeded)
             {
-                foreach (var error in created.Errors)
-                {
-                    ModelState.AddModelError(error.Code, error.Description);
-                }
+                ModelState.AddIdentityErrors(created.Errors);
 
                 return View(inputModel);
             }
