@@ -85,7 +85,7 @@ namespace Quiz.App.Controllers
 
             Console.WriteLine("seconds to finish {0}", timeDiff);
             
-            return View(new Score(_score, TimeDiff, Guid.NewGuid()));
+            return View(new Score(_score, TimeDiff, Guid.NewGuid().ToString()));
         }
 
         public IActionResult Reset()

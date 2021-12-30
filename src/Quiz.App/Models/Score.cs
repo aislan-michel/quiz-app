@@ -6,7 +6,7 @@ namespace Quiz.App.Models
     {
         protected Score() { }
         
-        public Score(int value, TimeSpan timeDiff, Guid userId)
+        public Score(int value, TimeSpan timeDiff, string userId)
         {
             Value = value;
             TimeToFinish = timeDiff.Seconds;
@@ -17,7 +17,7 @@ namespace Quiz.App.Models
         public int Value { get; }
         public int TimeToFinish { get; }
         public bool Passed { get; }
-        public Guid UserId { get; }
+        public string UserId { get; }
         public User User { get; private set; }
     }
 }

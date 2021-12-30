@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Configurations;
 using Quiz.App.Models;
 
 namespace Quiz.App.Infrastructure
 {
-    public class QuizDbContext : DbContext
+    public class QuizDbContext : IdentityDbContext<IdentityUser>
     {
         public QuizDbContext(DbContextOptions<QuizDbContext> options) : base(options)
         {
@@ -14,7 +16,6 @@ namespace Quiz.App.Infrastructure
         public DbSet<PossibleAnswer> PossibleAnswers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Score> Scores { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

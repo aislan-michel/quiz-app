@@ -7,13 +7,12 @@ namespace Quiz.App.Mappings
     {
         public static User ToModel(this CreateUserInputModel inputModel)
         {
-            return new(inputModel.FirstName, inputModel.LastName, inputModel.Password,
-                inputModel.Role);
+            return new(inputModel.FirstName, inputModel.LastName);
         }
 
         public static User ToModel(this RegisterUserInputModel inputModel)
         {
-            return new(inputModel.FirstName, inputModel.LastName, inputModel.Password, "default");
+            return new(inputModel.FirstName, inputModel.LastName);
         }
     }
 }

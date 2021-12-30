@@ -8,9 +8,9 @@
 <form class="needs-validation" method="post" asp-action="Login">
     
     <div class="mb-3">
-        @Html.LabelFor(x => x.Login, new {@class = "form-label"})
-        @Html.TextBoxFor(x => x.Login, new {@class = "form-control"})
-        @Html.ValidationMessageFor(x => x.Login, "", new {@class = "invalid-feedback"})
+        @Html.LabelFor(x => x.Username, new {@class = "form-label"})
+        @Html.TextBoxFor(x => x.Username, new {@class = "form-control"})
+        @Html.ValidationMessageFor(x => x.Username, "", new {@class = "invalid-feedback"})
     </div>
     
     <div class="mb-3">
@@ -22,3 +22,13 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div>
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(x => x.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}

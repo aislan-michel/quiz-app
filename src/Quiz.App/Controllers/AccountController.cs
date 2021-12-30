@@ -1,22 +1,23 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
 using Quiz.App.Models;
-using Quiz.App.Services;
 
 namespace Quiz.App.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IRepository<User> _repository;
-        private readonly ITokenService _tokenService;
-
-        public AccountController(IRepository<User> repository, ITokenService tokenService)
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
-            _repository = repository;
-            _tokenService = tokenService;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -28,23 +29,42 @@ namespace Quiz.App.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginInputModel inputModel)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(inputModel);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return View(inputModel);
+                }
+
+                //var user = await _userManager.FindByNameAsync(inputModel.Username);
             
-            var user = await _repository.FirstAsync(x => x.Login == inputModel.Login);
+                //await AddClaims(user);
 
-            if (user is null)
-            {
-                ModelState.AddModelError("invalid", "login or password is invalid");
+                var signInResult = await _signInManager.PasswordSignInAsync(inputModel.Username, inputModel.Password, false, false);
 
-                return View(inputModel);
+                if (!signInResult.Succeeded)
+                {
+                    ModelState.AddModelError("invalid", "login or password is invalid");
+
+                    return View(inputModel);
+                }
+            
+                return RedirectToAction("Index", "Home");
             }
-                
-            _tokenService.GenerateToken(user);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
 
-            return RedirectToAction("Index", "Home");
+        private async Task AddClaims(User user)
+        {
+            await _userManager.AddClaimsAsync(user, new[]
+            {
+                new Claim(ClaimTypes.Sid, user.Id),
+                new Claim(ClaimTypes.Surname, user.FirstName + " " + user.LastName)
+            });
         }
 
         [HttpGet]
@@ -61,13 +81,23 @@ namespace Quiz.App.Controllers
                 return View(inputModel);
             }
             
-            var model = inputModel.ToModel();
-            
-            _repository.Add(model);
+            var user = inputModel.ToModel();
 
-            await _repository.SaveAsync();
+            var created = await _userManager.CreateAsync(user, inputModel.Password);
+
+            if (!created.Succeeded)
+            {
+                foreach (var error in created.Errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+
+                return View(inputModel);
+            }
+
+            await _userManager.AddToRoleAsync(user, "common");
             
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

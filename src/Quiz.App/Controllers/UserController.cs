@@ -11,17 +11,14 @@ namespace Quiz.App.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IRepository<User> _repository;
-
-        public UserController(IRepository<User> repository)
+        public UserController()
         {
-            _repository = repository;
         }
 
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _repository.GetDataAsync());
+            return View();
         }
 
         [HttpGet]
@@ -42,17 +39,13 @@ namespace Quiz.App.Controllers
             
             var model = inputModel.ToModel();
             
-            _repository.Add(model);
-
-            await _repository.SaveAsync();
-            
             return RedirectToAction("Details", new {id = model.Id});
         }
         
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Details(Guid id)
         {
-            return View(await _repository.GetByIdAsync(id));
+            return View();
         }
     }
 }
