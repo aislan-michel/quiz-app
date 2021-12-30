@@ -19,5 +19,9 @@ namespace Quiz.App.Models
         public bool Passed { get; }
         public string UserId { get; }
         public User User { get; private set; }
+        
+        //de qual categoria é esse score?
+        
+        //de qual quiz?
     }
 }

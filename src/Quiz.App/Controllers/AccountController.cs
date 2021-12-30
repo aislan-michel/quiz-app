@@ -91,5 +91,12 @@ namespace Quiz.App.Controllers
             
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> GetMyScores(string userId) //preciso criar uma ScoreController?
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            
+            throw new NotImplementedException();
+        }
     }
 }
