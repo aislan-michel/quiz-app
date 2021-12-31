@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -10,9 +11,13 @@ namespace Quiz.App.Extensions
         {
             foreach (var error in identityErrors)
             {
-                modelState.AddModelError(error.Code, error.Description);
+                modelState.AddModelError($"identity-{error.Code}", error.Description);
             }
         }
-        
+
+        public static IEnumerable<string> GetErrors(this ModelStateDictionary modelState)
+        {
+            return modelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage);
+        }
     }
 }

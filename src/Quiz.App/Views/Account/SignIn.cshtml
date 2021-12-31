@@ -1,4 +1,5 @@
-﻿@model Quiz.App.InputModels.LoginInputModel
+﻿@using Quiz.App.Extensions
+@model Quiz.App.InputModels.LoginInputModel
 
 @{
     ViewBag.Title = "Login";
@@ -23,12 +24,14 @@
 
 </form>
 
-@if (!ViewData.ModelState.IsValid)
+@*TODO: Create a view component for this*@
+@*Not working*@
+@if (ViewData.ModelState.Keys.Contains("identity"))
 {
     <div>
-        @foreach (var error in ViewData.ModelState.Values.SelectMany(x => x.Errors))
+        @foreach (var error in ViewData.ModelState.GetErrors())
         {
-            <p>@error.ErrorMessage</p>
+            <p>@error</p>
         }
     </div>
 }
