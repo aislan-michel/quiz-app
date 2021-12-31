@@ -26,8 +26,7 @@
         <p>This category don't have questions</p>
       </div>
         <div class="modal-footer">
-            @*TODO: The close button not working*@
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="hideModal()">Close</button>
         </div>
     </div>
   </div>
@@ -54,6 +53,10 @@
         
         function showModal(){
             $('#category-has-no-questions').show();
+        }
+        
+        function hideModal(){
+            $('#category-has-no-questions').hide();
         }
     </script>
 }
