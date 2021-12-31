@@ -1,9 +1,11 @@
-﻿@model Question
+﻿@model Quiz.App.ViewModels.Quiz.QuestionViewModel
 
 @{
-    ViewData["Title"] = $"Question {@Model.Index + 1}";
+    ViewData["Title"] = $"Question {@Model.Index}";
     Layout = "_Layout";
 }
+
+
 
 <h2>@Model.Text</h2>
 
@@ -24,3 +26,15 @@
         }
     </div>      
 </form>
+
+@*TODO: Create a view component for this*@
+@if (!ViewData.ModelState.IsValid)
+{
+    <div>
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(x => x.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+            <a class="btn btn-primary" asp-controller="Quiz" asp-action="NextQuestion" asp-route-categoryId="@Model.CategoryId" asp-route-index="@Model.Index">Next question</a>
+    </div>
+}

@@ -24,7 +24,13 @@
 
     <div class="mb-3">
         <label class="form-label">Correct answer</label>
-        <input type="number" max="4" class="form-control" name="correct">
+        <select class="custom-select" name="correct">
+            <option disabled selected>Select one</option>
+            <option value="1">number 1</option>
+            <option value="2">number 2</option>
+            <option value="3">number 3</option>
+            <option value="4">number 4</option>
+        </select>
     </div>
     
     <input hidden value="@Model.QuestionId" name="questionId">
