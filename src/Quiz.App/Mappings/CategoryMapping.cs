@@ -13,9 +13,9 @@ namespace Quiz.App.Mappings
             return new(inputModel.Name);
         }
 
-        public static IEnumerable<CategoriesViewModel> ToViewModel(this List<Category> categories)
+        public static IEnumerable<CategoriesViewModel> ToViewModel(this IEnumerable<Category> categories)
         {
-            return categories.Select(x => new CategoriesViewModel()
+            return categories.Select(x => new CategoriesViewModel
             {
                 Name = x.Name,
                 TotalQuestions = x.Questions.Count

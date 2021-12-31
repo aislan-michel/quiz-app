@@ -11,5 +11,49 @@
 
 @foreach (var category in @Model)
 {
-    <a class="btn btn-primary" asp-controller="Quiz" asp-action="StartGame" asp-route-categoryId="@category.Id">@category.Name</a>   
-}         
+    <button class="btn btn-primary" onclick="countQuestionsOfCategory('@category.Id')">
+        @category.Name
+    </button>   
+}     
+
+<div id="category-has-no-questions" class="modal" tabindex="-1" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ops...</h5>
+      </div>
+      <div class="modal-body">
+        <p>This category don't have questions</p>
+      </div>
+        <div class="modal-footer">
+            @*TODO: The close button not working*@
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        function countQuestionsOfCategory(categoryId){
+            $.get(`/quiz/countQuestionsOfCategory?categoryId=${categoryId}`, (data) => {
+                const {count} = data;
+                
+                if(count === 0){
+                    showModal();       
+                    return;
+                }
+                
+                $.get(`/quiz/startGame?categoryId=${categoryId}`, (data) => {
+                    const {redirectToUrl} = data;
+                    window.location.href = redirectToUrl;
+                });
+            });
+        }
+        
+        function showModal(){
+            $('#category-has-no-questions').show();
+        }
+    </script>
+}

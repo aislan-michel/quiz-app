@@ -30,6 +30,14 @@ namespace Quiz.App.Controllers
         }
 
         private static TimeSpan TimeDiff => _end - _start;
+
+        [HttpGet]
+        public async Task<IActionResult> CountQuestionsOfCategory(Guid categoryId)
+        {
+            var totalQuestionsOfCategory = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
+
+            return Ok(new {count = totalQuestionsOfCategory});
+        }
         
         public async Task<IActionResult> Index()
         {
@@ -43,8 +51,8 @@ namespace Quiz.App.Controllers
             _start = DateTime.Now;
 
             Console.WriteLine(_start);
-            
-            return RedirectToAction("Question", new { categoryId });
+
+            return Json(new {redirectToUrl = Url.Action("Question", new {categoryId})});
         }
 
         public async Task<IActionResult> Question(Guid categoryId)

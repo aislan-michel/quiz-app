@@ -45,8 +45,7 @@
         $(document).ready(() => {
             const questionId = '@Model.QuestionId';
             
-            $.get(`/question/getText?id=${questionId}`, (data) => {
-                console.log(data.text);
+            $.get(`/question/getText?id=${questionId}`, (data) => { 
                 $("#question-text").text(data.text);
             });
         });
