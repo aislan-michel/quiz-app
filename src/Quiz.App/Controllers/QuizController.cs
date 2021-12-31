@@ -52,6 +52,9 @@ namespace Quiz.App.Controllers
 
             Console.WriteLine(_start);
 
+            _index = 1;
+            _score = 0;
+
             return Json(new {redirectToUrl = Url.Action("Question", new {categoryId})});
         }
 
