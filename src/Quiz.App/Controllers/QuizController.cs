@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Quiz.App.Extensions;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
+using Quiz.App.Mappings;
 using Quiz.App.Models;
 
 namespace Quiz.App.Controllers
@@ -29,6 +30,14 @@ namespace Quiz.App.Controllers
         }
 
         private static TimeSpan TimeDiff => _end - _start;
+
+        [HttpGet]
+        public async Task<IActionResult> CountQuestionsOfCategory(Guid categoryId)
+        {
+            var totalQuestionsOfCategory = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
+
+            return Ok(new {count = totalQuestionsOfCategory});
+        }
         
         public async Task<IActionResult> Index()
         {
@@ -42,8 +51,11 @@ namespace Quiz.App.Controllers
             _start = DateTime.Now;
 
             Console.WriteLine(_start);
-            
-            return RedirectToAction("Question", new { categoryId });
+
+            _index = 1;
+            _score = 0;
+
+            return Json(new {redirectToUrl = Url.Action("Question", new {categoryId})});
         }
 
         public async Task<IActionResult> Question(Guid categoryId)
@@ -56,10 +68,42 @@ namespace Quiz.App.Controllers
             {
                 return RedirectToAction(nameof(Score));
             }
+            
+            if (!question.HaveAnswers())
+            {
+                ModelState.AddModelError("", "this question don't have answers");
+
+                return View(question.ToViewModel());
+            }
 
             _index++;
 
-            return View(question);
+            return View(question.ToViewModel());
+        }
+        
+        public async Task<IActionResult> NextQuestion(Guid categoryId, int index)
+        {
+            index++;
+            
+            var question = await _questionRepository.FirstAsync(
+                x => x.Index == index && x.CategoryId == categoryId,
+                x => x.Include(y => y.PossibleAnswers));
+
+            if (question is null)
+            {
+                return RedirectToAction(nameof(Score));
+            }
+            
+            if (!question.HaveAnswers())
+            {
+                ModelState.AddModelError("", "this question don't have answers");
+
+                return View("Question", question.ToViewModel());
+            }
+
+            _index++;
+
+            return View("Question", question.ToViewModel());
         }
 
         public async Task<IActionResult> SendAnswer(SendAnswer inputModel)
@@ -102,7 +146,7 @@ namespace Quiz.App.Controllers
         public IActionResult Reset()
         {
             _score = 0;
-            _index = 0;
+            _index = 1;
             _end = DateTime.Now;
 
             return RedirectToAction(nameof(Index));
