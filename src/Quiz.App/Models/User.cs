@@ -30,15 +30,15 @@ namespace Quiz.App.Models
         {
             const char dot = '.';
 
-            var login = new StringBuilder();
+            var userName = new StringBuilder();
 
-            login
+            userName
                 .Append(FirstName.ContainsWhiteSpace() ? FirstName.GetFirstWord() : FirstName)
                 .Append(dot)
                 .Append(LastName.ContainsWhiteSpace() ? LastName.GetLastWord() : LastName)
                 .Append("@game");
 
-            return login.ToString().ToLower();
+            return userName.ToString().ToLower();
         }
     }
 }

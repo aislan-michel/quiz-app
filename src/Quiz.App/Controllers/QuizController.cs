@@ -16,7 +16,6 @@ namespace Quiz.App.Controllers
     {
         private static int _score;
         private static int _index = 1;
-        private DateTime _end;
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Score> _scoreRepository;
@@ -116,13 +115,13 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Score()
         {
-            _end = DateTime.Now;
+            var endDate = DateTime.Now;
             
             var userId = User.Identity.GetId();
 
             var startDate = _startDateCache.Get(userId);
             
-            var timeDiff = _end.Second - startDate.Second;
+            var timeDiff = endDate.Second - startDate.Second;
 
             var score = new Score(_score, timeDiff, userId);
             
