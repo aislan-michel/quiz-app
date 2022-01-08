@@ -37,6 +37,10 @@ namespace Quiz.App.Controllers
                     return View(inputModel);
                 }
 
+                var user = await _userManager.FindByNameAsync(inputModel.Username);
+
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Sid, user.Id));
+
                 var signInResult = await _signInManager.PasswordSignInAsync(inputModel.Username, inputModel.Password, false, false);
 
                 if (!signInResult.Succeeded)
