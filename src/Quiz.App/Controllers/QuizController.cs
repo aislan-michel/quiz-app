@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using Quiz.App.Extensions;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
@@ -17,22 +16,21 @@ namespace Quiz.App.Controllers
     {
         private static int _score;
         private static int _index = 1;
-        //private DateTime _start;
         private DateTime _end;
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Score> _scoreRepository;
-        private readonly IMemoryCache _cache;
+        private readonly ICacheRepository<DateTime> _startDateCache;
 
         public QuizController(
             IRepository<Question> questionRepository, 
             IRepository<Category> categoryRepository, 
-            IRepository<Score> scoreRepository, IMemoryCache cache)
+            IRepository<Score> scoreRepository, ICacheRepository<DateTime> startDateCache)
         {
             _questionRepository = questionRepository;
             _categoryRepository = categoryRepository;
             _scoreRepository = scoreRepository;
-            _cache = cache;
+            _startDateCache = startDateCache;
         }
 
         public async Task<IActionResult> Index()
@@ -46,7 +44,9 @@ namespace Quiz.App.Controllers
         {
             var startDate = DateTime.Now;
             
-            AddStartDateInCache(startDate);
+            var userId = User.Identity.GetId();
+            
+            _startDateCache.Set(userId, startDate);
 
             _index = 1;
             _score = 0;
@@ -116,11 +116,11 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Score()
         {
-            var userId = User.Identity.GetId();
-            
-            var startDate = GetStartDateInCache(userId);
-            
             _end = DateTime.Now;
+            
+            var userId = User.Identity.GetId();
+
+            var startDate = _startDateCache.Get(userId);
             
             var timeDiff = _end.Second - startDate.Second;
 
@@ -147,21 +147,6 @@ namespace Quiz.App.Controllers
             var totalQuestionsOfCategory = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
 
             return Ok(new {count = totalQuestionsOfCategory});
-        }
-
-        private void AddStartDateInCache(DateTime startDate)
-        {
-            var userId = User.Identity.GetId();
-            
-            var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromMinutes(30));
-
-            _cache.Set(userId, startDate, cacheEntryOptions);
-        }
-
-        private DateTime GetStartDateInCache(string userId)
-        {
-            return _cache.Get<DateTime>(userId);
         }
     }
 }

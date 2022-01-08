@@ -35,6 +35,7 @@ builder.Services.Configure<PasswordHasherOptions>(options =>
 });
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(ICacheRepository<>), typeof(CacheRepository<>));
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();
