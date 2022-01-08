@@ -6,10 +6,10 @@ namespace Quiz.App.Models
     {
         protected Score() { }
         
-        public Score(int value, TimeSpan timeDiff, string userId)
+        public Score(int value, int secondsDiff, string userId)
         {
             Value = value;
-            TimeToFinish = timeDiff.Seconds;
+            TimeToFinish = secondsDiff;
             Passed = Value > 2; //TODO: pass the test if passed in 70% of questions
             UserId = userId;
         }
