@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Category>
+﻿@model IEnumerable<Quiz.App.ViewModels.Quiz.IndexViewModel>
 
 @{
     ViewData["Title"] = "Start Game";
@@ -9,54 +9,9 @@
     <li class="list-group-item">Choose your category</li>
 </ul>
 
-@foreach (var category in @Model)
+@foreach (var item in @Model)
 {
-    <button class="btn btn-primary" onclick="countQuestionsOfCategory('@category.Id')">
-        @category.Name
-    </button>   
-}     
-
-<div id="category-has-no-questions" class="modal" tabindex="-1" style="display: none;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Ops...</h5>
-      </div>
-      <div class="modal-body">
-        <p>This category don't have questions</p>
-      </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" onclick="hideModal()">Close</button>
-        </div>
-    </div>
-  </div>
-</div>
-
-@section Scripts
-{
-    <script>
-        function countQuestionsOfCategory(categoryId){
-            $.get(`/quiz/countQuestionsOfCategory?categoryId=${categoryId}`, (data) => {
-                const {count} = data;
-                
-                if(count === 0){
-                    showModal();       
-                    return;
-                }
-                
-                $.get(`/quiz/startGame?categoryId=${categoryId}`, (data) => {
-                    const {redirectToUrl} = data;
-                    window.location.href = redirectToUrl;
-                });
-            });
-        }
-        
-        function showModal(){
-            $('#category-has-no-questions').show();
-        }
-        
-        function hideModal(){
-            $('#category-has-no-questions').hide();
-        }
-    </script>
+    <a class='btn btn-primary @(item.CategoryHaveQuestions ? "" : "disabled")' asp-action="StartGame" asp-route-categoryId="@item.CategoryId">
+        @item.CategoryName
+    </a>
 }
