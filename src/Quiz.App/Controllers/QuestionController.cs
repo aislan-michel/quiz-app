@@ -60,7 +60,7 @@ namespace Quiz.App.Controllers
 
             await _repository.SaveAsync();
 
-            return RedirectToAction("Details", new { id = question.Id });
+            return RedirectToAction("Create", "Answer", new {questionId = question.Id});
         }
 
         [HttpGet]
