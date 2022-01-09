@@ -30,33 +30,25 @@ namespace Quiz.App.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(LoginInputModel inputModel)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return View(inputModel);
-                }
+                return View(inputModel);
+            }
 
-                var user = await _userManager.FindByNameAsync(inputModel.Username);
+            var user = await _userManager.FindByNameAsync(inputModel.Username);
 
-                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Sid, user.Id));
+            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Sid, user.Id));
 
-                var signInResult = await _signInManager.PasswordSignInAsync(inputModel.Username, inputModel.Password, false, false);
+            var signInResult = await _signInManager.PasswordSignInAsync(inputModel.Username, inputModel.Password, false, false);
 
-                if (!signInResult.Succeeded)
-                {
-                    ModelState.AddModelError("invalid", "login or password is invalid");
+            if (!signInResult.Succeeded)
+            {
+                ModelState.AddModelError("invalid", "login or password is invalid");
 
-                    return View(inputModel);
-                }
+                return View(inputModel);
+            }
             
-                return RedirectToAction("Index", "Home");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         public new async Task<IActionResult> SignOut()

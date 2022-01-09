@@ -24,7 +24,8 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _categoryRepository.GetDataAsync(include: x => x.Include(y => y.Questions));
+            var categories = await _categoryRepository.GetDataAsync(
+                include: x => x.Include(y => y.Questions));
             
             return View(categories.ToViewModel());
         }
