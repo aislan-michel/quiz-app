@@ -24,7 +24,8 @@ namespace Quiz.App.Controllers
         public QuizController(
             IRepository<Question> questionRepository, 
             IRepository<Category> categoryRepository, 
-            IRepository<Score> scoreRepository, ICacheRepository<DateTime> startDateCache)
+            IRepository<Score> scoreRepository, 
+            ICacheRepository<DateTime> startDateCache)
         {
             _questionRepository = questionRepository;
             _categoryRepository = categoryRepository;
@@ -34,9 +35,10 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _categoryRepository.GetDataAsync();
-            
-            return View(categories);
+            var categories = await _categoryRepository.GetDataAsync(
+                include: x => x.Include(y => y.Questions));
+
+            return View(categories.ToIndexViewModel());
         }
 
         public IActionResult StartGame(Guid categoryId)
@@ -50,7 +52,7 @@ namespace Quiz.App.Controllers
             _index = 1;
             _score = 0;
 
-            return Json(new {redirectToUrl = Url.Action("Question", new {categoryId})});
+            return RedirectToAction("Question", new {categoryId});
         }
 
         public async Task<IActionResult> Question(Guid categoryId)
@@ -138,14 +140,6 @@ namespace Quiz.App.Controllers
             _index = 1;
 
             return RedirectToAction(nameof(Index));
-        }
-        
-        [HttpGet]
-        public async Task<IActionResult> CountQuestionsOfCategory(Guid categoryId)
-        {
-            var totalQuestionsOfCategory = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
-
-            return Ok(new {count = totalQuestionsOfCategory});
         }
     }
 }

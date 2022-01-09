@@ -78,3 +78,8 @@ td, th {
 .invalid-feedback {
   display: block;
 }
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
