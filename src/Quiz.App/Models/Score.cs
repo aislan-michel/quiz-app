@@ -6,22 +6,42 @@ namespace Quiz.App.Models
     {
         protected Score() { }
         
-        public Score(int value, int secondsDiff, string userId)
+        public Score(
+            string userId, Guid categoryId, int questionsCount, int correctAnswers, int timeToFinish)
         {
-            Value = value;
-            TimeToFinish = secondsDiff;
-            Passed = Value > 2; //TODO: pass the test if passed in 70% of questions
             UserId = userId;
+            CategoryId = categoryId;
+            QuestionsCount = questionsCount;
+            CorrectQuestionsCount = correctAnswers;
+            SetIncorrectQuestionsCount();
+            TimeToFinish = timeToFinish;
+            Approved = VerifyIfApproved();
         }
         
-        public int Value { get; }
-        public int TimeToFinish { get; }
-        public bool Passed { get; }
         public string UserId { get; }
         public User User { get; private set; }
-        
-        //de qual categoria é esse score?
+        public Guid CategoryId { get; private set; }
+        public Category Category { get; private set; }
+        public int QuestionsCount { get; private set; }
+        public int CorrectQuestionsCount { get; private set; }
+        public int IncorrectQuestionsCount { get; private set; }
+        public int TimeToFinish { get; }
+        public bool Approved { get; }
         
         //de qual quiz?
+
+        private bool VerifyIfApproved()
+        {
+            //TODO: pass the test if passed in 50% of questions
+            
+            var x = QuestionsCount / 2;
+
+            return CorrectQuestionsCount > x;
+        }
+
+        private void SetIncorrectQuestionsCount()
+        {
+            IncorrectQuestionsCount = QuestionsCount - CorrectQuestionsCount;
+        }
     }
 }
