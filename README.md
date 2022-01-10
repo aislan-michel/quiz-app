@@ -20,6 +20,6 @@ As a developer you can create a quiz application for testing coding skills of ot
 
 -   [ ] User can share the result of a quiz on social media
 -   [x] Add multiple quizzes to the application. User can select which one to take
--   [ ] User can create an account and have all the scores saved in his dashboard. User can complete a quiz multiple times
+-   [x] User can create an account and have all the scores saved in his dashboard. User can complete a quiz multiple times
 
 forked from => https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Quiz-App.md
