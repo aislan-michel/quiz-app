@@ -14,8 +14,9 @@ namespace Quiz.App.Controllers
     [Authorize]
     public class QuizController : Controller
     {
-        private static int _score;
+        private static int _correctAnswers;
         private static int _index = 1;
+        private static int _questionsCount;
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Score> _scoreRepository;
@@ -41,7 +42,7 @@ namespace Quiz.App.Controllers
             return View(categories.ToIndexViewModel());
         }
 
-        public IActionResult StartGame(Guid categoryId)
+        public async Task<IActionResult> StartGame(Guid categoryId)
         {
             var startDate = DateTime.Now;
             
@@ -50,7 +51,8 @@ namespace Quiz.App.Controllers
             _startDateCache.Set(userId, startDate);
 
             _index = 1;
-            _score = 0;
+            _correctAnswers = 0;
+            _questionsCount = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
 
             return RedirectToAction("Question", new {categoryId});
         }
@@ -63,7 +65,7 @@ namespace Quiz.App.Controllers
 
             if (question is null)
             {
-                return RedirectToAction(nameof(Score));
+                return RedirectToAction(nameof(Score), new {categoryId});
             }
             
             if (!question.HaveAnswers())
@@ -86,7 +88,7 @@ namespace Quiz.App.Controllers
 
             if (question is null)
             {
-                return RedirectToAction(nameof(Score));
+                return RedirectToAction(nameof(Score), new {categoryId});
             }
             
             if (!question.HaveAnswers())
@@ -109,13 +111,13 @@ namespace Quiz.App.Controllers
 
             if (question.IsCorrectAnswer(inputModel.Answer))
             {
-                _score++;
+                _correctAnswers++;
             }
 
             return RedirectToAction("Question", new{ categoryId = inputModel.CategoryId.ToString() });
         }
 
-        public async Task<IActionResult> Score()
+        public async Task<IActionResult> Score(Guid categoryId)
         {
             var endDate = DateTime.Now;
             
@@ -124,8 +126,8 @@ namespace Quiz.App.Controllers
             var startDate = _startDateCache.Get(userId);
             
             var timeDiff = endDate.Second - startDate.Second;
-
-            var score = new Score(_score, timeDiff, userId);
+ 
+            var score = new Score(userId, categoryId, _questionsCount, _correctAnswers, timeDiff);
             
             _scoreRepository.Add(score);
 
@@ -136,7 +138,7 @@ namespace Quiz.App.Controllers
 
         public IActionResult Reset()
         {
-            _score = 0;
+            _correctAnswers = 0;
             _index = 1;
 
             return RedirectToAction(nameof(Index));

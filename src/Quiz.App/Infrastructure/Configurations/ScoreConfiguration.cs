@@ -9,16 +9,21 @@ namespace Quiz.App.Infrastructure.Configurations
         {
             base.Configure(builder);
             
-            builder.Property(x => x.Value);
-            builder.Property(x => x.TimeToFinish);
-            builder.Property(x => x.Passed);
-
             builder
                 .HasOne(x => x.User)
                 .WithMany(x => x.Scores)
                 .HasForeignKey(x => x.UserId);
-            
-            base.Configure(builder);
+
+            builder
+                .HasOne(x => x.Category)
+                .WithMany(x => x.Scores)
+                .HasForeignKey(x => x.CategoryId);
+
+            builder.Property(x => x.QuestionsCount);
+            builder.Property(x => x.CorrectQuestionsCount);
+            builder.Property(x => x.IncorrectQuestionsCount);
+            builder.Property(x => x.TimeToFinish);
+            builder.Property(x => x.Approved);
         }
     }
 }
