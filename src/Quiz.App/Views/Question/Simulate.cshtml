@@ -1,0 +1,40 @@
+﻿@model Question
+
+@{
+    ViewBag.Title = "Simulate";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Text</h2>
+
+<div class="row">
+    @foreach (var answer in @Model.PossibleAnswers)
+    {
+        <div class="col-sm-6 p-1">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">@answer.Answer</p>
+                    <input hidden value="@Model.Id" name="Id">
+                    <input hidden value="@Model.CategoryId" name="CategoryId">
+                    <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer" onclick="sendAnswer('@answer.Id')">Correct</button>
+                </div>
+            </div>
+        </div> 
+    }
+</div>
+
+
+@section Scripts
+{
+    <script>
+        function sendAnswer(answerId){
+            const correctAnswerId = '@Model.GetCorrectAnswer().Id';
+            
+            if (answerId === correctAnswerId){
+                return alert('correct');
+            }
+            
+            return alert('incorrect');
+        }
+    </script>
+}

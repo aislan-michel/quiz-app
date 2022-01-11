@@ -100,5 +100,12 @@ namespace Quiz.App.Controllers
 
             return Json(new {text = question.Text});
         }
+
+        public async Task<IActionResult> Simulate(Guid id)
+        {
+            return View(await _repository.FirstAsync(
+                x => x.Id == id,
+                x => x.Include(y => y.PossibleAnswers)));
+        }
     }
 }
