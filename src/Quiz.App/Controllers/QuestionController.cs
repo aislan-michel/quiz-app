@@ -107,5 +107,17 @@ namespace Quiz.App.Controllers
                 x => x.Id == id,
                 x => x.Include(y => y.PossibleAnswers)));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> IsCorrectAnswer(Guid questionId, Guid answerId)
+        {
+            var question = await _repository.FirstAsync(
+                x => x.Id == questionId,
+                x => x.Include(y => y.PossibleAnswers));
+
+            var correct = question.IsCorrectAnswer(answerId);
+
+            return Json(new {data = correct});
+        }
     }
 }
