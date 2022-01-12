@@ -15,23 +15,23 @@ namespace Quiz.App.Controllers
     public class QuizController : Controller
     {
         private static int _correctAnswers;
-        private static int _index = 1;
+        private static int _currentQuestion = 1;
         private static int _questionsCount;
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Score> _scoreRepository;
-        private readonly ICacheRepository<DateTime> _startDateCache;
+        private readonly ICacheRepository<DateTime> _startTimeCache;
 
         public QuizController(
             IRepository<Question> questionRepository, 
             IRepository<Category> categoryRepository, 
             IRepository<Score> scoreRepository, 
-            ICacheRepository<DateTime> startDateCache)
+            ICacheRepository<DateTime> startTimeCache)
         {
             _questionRepository = questionRepository;
             _categoryRepository = categoryRepository;
             _scoreRepository = scoreRepository;
-            _startDateCache = startDateCache;
+            _startTimeCache = startTimeCache;
         }
 
         public async Task<IActionResult> Index()
@@ -44,23 +44,33 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> StartGame(Guid categoryId)
         {
+            await SetupGame(categoryId);
+            
+            StartTime();
+
+            return RedirectToAction("Question", new {categoryId});
+        }
+
+        private void StartTime()
+        {
             var startDate = DateTime.Now;
             
             var userId = User.Identity.GetId();
             
-            _startDateCache.Set(userId, startDate);
+            _startTimeCache.Set(userId, startDate);
+        }
 
-            _index = 1;
+        private async Task SetupGame(Guid categoryId)
+        {
+            _currentQuestion = 1;
             _correctAnswers = 0;
             _questionsCount = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
-
-            return RedirectToAction("Question", new {categoryId});
         }
 
         public async Task<IActionResult> Question(Guid categoryId)
         {
             var question = await _questionRepository.FirstAsync(
-                x => x.Index == _index && x.CategoryId == categoryId,
+                x => x.Index == _currentQuestion && x.CategoryId == categoryId,
                 x => x.Include(y => y.PossibleAnswers));
 
             if (question is null)
@@ -70,12 +80,12 @@ namespace Quiz.App.Controllers
             
             if (!question.HaveAnswers())
             {
-                ModelState.AddModelError("", "this question don't have answers");
+                ModelState.AddModelError("question", "this question don't have answers");
 
                 return View(question.ToViewModel());
             }
 
-            _index++;
+            _currentQuestion++;
 
             return View(question.ToViewModel());
         }
@@ -83,7 +93,7 @@ namespace Quiz.App.Controllers
         public async Task<IActionResult> NextQuestion(Guid categoryId)
         {
             var question = await _questionRepository.FirstAsync(
-                x => x.Index == _index && x.CategoryId == categoryId,
+                x => x.Index == _currentQuestion && x.CategoryId == categoryId,
                 x => x.Include(y => y.PossibleAnswers));
 
             if (question is null)
@@ -93,12 +103,12 @@ namespace Quiz.App.Controllers
             
             if (!question.HaveAnswers())
             {
-                ModelState.AddModelError("", "this question don't have answers");
+                ModelState.AddModelError("question", "this question don't have answers");
 
                 return View("Question", question.ToViewModel());
             }
 
-            _index++;
+            _currentQuestion++;
 
             return View("Question", question.ToViewModel());
         }
@@ -123,24 +133,25 @@ namespace Quiz.App.Controllers
             
             var userId = User.Identity.GetId();
 
-            var startDate = _startDateCache.Get(userId);
+            var startDate = _startTimeCache.Get(userId);
             
-            var timeDiff = endDate.Second - startDate.Second;
+            var timeToFinish = endDate.Second - startDate.Second;
  
-            var score = new Score(userId, categoryId, _questionsCount, _correctAnswers, timeDiff);
+            var score = new Score(userId, categoryId, _questionsCount, _correctAnswers, timeToFinish);
             
             _scoreRepository.Add(score);
 
             await _scoreRepository.SaveAsync();
             
+            _startTimeCache.Remove(userId);
+            
             return View(score);
         }
+        
+        
 
         public IActionResult Reset()
         {
-            _correctAnswers = 0;
-            _index = 1;
-
             return RedirectToAction(nameof(Index));
         }
     }

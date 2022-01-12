@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Quiz.App.Extensions;
 using Quiz.App.Infrastructure.Repositories;
+using Quiz.App.Mappings;
 using Quiz.App.Models;
 
 namespace Quiz.App.Controllers
@@ -26,7 +27,7 @@ namespace Quiz.App.Controllers
                 x => x.UserId == userId,
                 x => x.Include(y => y.Category)); 
             
-            return View(scores);
+            return View(scores.ToIndexViewModel());
         }
     }
 }

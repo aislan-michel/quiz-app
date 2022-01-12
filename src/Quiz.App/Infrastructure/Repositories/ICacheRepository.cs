@@ -4,5 +4,6 @@
     {
         void Set(string key, T entry);
         T Get(string key);
+        void Remove(string key);
     }
 }

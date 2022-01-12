@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Score>
+﻿@model IEnumerable<Quiz.App.ViewModels.Dashboard.IndexViewModel>
 
 @{
     ViewBag.Title = "Dashboard";
@@ -21,10 +21,10 @@
   @foreach (var score in @Model)
   {
     <tr>
-      <td>@score.Category.Name</td>
+      <td>@score.Category</td>
       <td>@score.QuestionsCount</td>
-      <td>@score.CorrectQuestionsCount</td>
-      <td>@score.IncorrectQuestionsCount</td>
+      <td>@score.CorrectQuestions</td>
+      <td>@score.IncorrectQuestions</td>
       <td>@score.TimeToFinish seconds</td>
       <td>@(score.Approved ? "yes" : "no")</td>
     </tr> 

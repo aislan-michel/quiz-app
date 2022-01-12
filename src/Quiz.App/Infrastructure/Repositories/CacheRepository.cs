@@ -22,10 +22,12 @@ namespace Quiz.App.Infrastructure.Repositories
 
         public T Get(string key)
         {
-            var t = _cache.Get(key);
-            var x = _cache.Get<T>(key);
-            
             return _cache.Get<T>(key);
+        }
+
+        public void Remove(string key)
+        {
+            _cache.Remove(key);
         }
     }
 }
