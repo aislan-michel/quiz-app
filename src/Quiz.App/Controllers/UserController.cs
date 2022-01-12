@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Quiz.App.InputModels;
+using Quiz.App.Models.InputModels;
 using Quiz.App.Mappings;
 
 namespace Quiz.App.Controllers

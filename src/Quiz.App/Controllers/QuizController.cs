@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Quiz.App.Extensions;
 using Quiz.App.Infrastructure.Repositories;
-using Quiz.App.InputModels;
+using Quiz.App.Models.InputModels;
 using Quiz.App.Mappings;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
+using Quiz.App.ViewModels.Quiz;
 
 namespace Quiz.App.Controllers
 {
@@ -39,7 +40,7 @@ namespace Quiz.App.Controllers
             var categories = await _categoryRepository.GetDataAsync(
                 include: x => x.Include(y => y.Questions));
 
-            return View(categories.ToIndexViewModel());
+            return View(new IndexViewModel {Categories = categories.ToQuizViewModel()});
         }
 
         public async Task<IActionResult> StartGame(Guid categoryId)
@@ -145,7 +146,7 @@ namespace Quiz.App.Controllers
             
             _startTimeCache.Remove(userId);
             
-            return View(score);
+            return View(score.ToQuizScoreViewModel());
         }
         
         public IActionResult Reset()

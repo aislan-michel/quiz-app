@@ -1,5 +1,5 @@
-﻿using Quiz.App.InputModels;
-using Quiz.App.Models;
+﻿using Quiz.App.Models.InputModels;
+using Quiz.App.Models.Entities;
 
 namespace Quiz.App.Mappings
 {

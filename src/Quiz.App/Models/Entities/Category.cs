@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Quiz.App.Models
+namespace Quiz.App.Models.Entities
 {
-    public class Category : BaseModel
+    public class Category : BaseEntity
     {
         protected Category() { }
         

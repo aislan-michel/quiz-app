@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Quiz.App.ViewModels.Dashboard.IndexViewModel>
+﻿@model Quiz.App.ViewModels.Dashboard.IndexViewModel
 
 @{
     ViewBag.Title = "Dashboard";
@@ -18,7 +18,7 @@
   </tr>
   </thead>
   <tbody>
-  @foreach (var score in @Model)
+  @foreach (var score in @Model.Scores)
   {
     <tr>
       <td>@score.Category</td>

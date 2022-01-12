@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Quiz.App.Models
+namespace Quiz.App.Models.Entities
 {
-    public abstract class BaseModel
+    public abstract class BaseEntity
     {
-        protected BaseModel()
+        protected BaseEntity()
         {
             Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;

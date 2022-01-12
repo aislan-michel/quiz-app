@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Quiz.App.Models
+namespace Quiz.App.Models.Entities
 {
-    public class Score : BaseModel
+    public class Score : BaseEntity
     {
         protected Score() { }
         

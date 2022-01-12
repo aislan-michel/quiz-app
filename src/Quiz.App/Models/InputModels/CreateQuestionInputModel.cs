@@ -1,15 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Quiz.App.InputModels
+namespace Quiz.App.Models.InputModels
 {
-    public class UpdateQuestionInputModel
+    public class CreateQuestionInputModel
     {
         [Required]
         public string Text { get; set; }
         
         [Required]
-        [Range(1,15)]
+        [Range(1, 15)]
         public int Index { get; set; }
         
         [Required]

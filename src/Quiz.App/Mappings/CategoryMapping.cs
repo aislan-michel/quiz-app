@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Quiz.App.InputModels;
-using Quiz.App.Models;
+using Quiz.App.Models.InputModels;
+using Quiz.App.Models.Entities;
 using Quiz.App.ViewModels;
 using Quiz.App.ViewModels.Quiz;
 
@@ -23,9 +23,9 @@ namespace Quiz.App.Mappings
             });
         }
 
-        public static IEnumerable<IndexViewModel> ToIndexViewModel(this IEnumerable<Category> categories)
+        public static IEnumerable<CategoryViewModel> ToQuizViewModel(this IEnumerable<Category> categories)
         {
-            return categories.Select(x => new IndexViewModel()
+            return categories.Select(x => new CategoryViewModel()
             {
                 CategoryId = x.Id,
                 CategoryName = x.Name,

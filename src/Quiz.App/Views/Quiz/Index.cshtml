@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Quiz.App.ViewModels.Quiz.IndexViewModel>
+﻿@model Quiz.App.ViewModels.Quiz.IndexViewModel
 
 @{
     ViewData["Title"] = "Start Game";
@@ -9,7 +9,7 @@
     <li class="list-group-item">Choose your category</li>
 </ul>
 
-@foreach (var item in @Model)
+@foreach (var item in @Model.Categories)
 {
     <a class='btn btn-primary @(item.CategoryHaveQuestions ? "" : "disabled")' asp-action="StartGame" asp-route-categoryId="@item.CategoryId">
         @item.CategoryName

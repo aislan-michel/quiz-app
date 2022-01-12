@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Quiz.App.InputModels;
-using Quiz.App.Models;
+using Quiz.App.Models.InputModels;
+using Quiz.App.Models.Entities;
 using Quiz.App.ViewModels.Question;
 
 namespace Quiz.App.Mappings

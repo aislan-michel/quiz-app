@@ -1,6 +1,6 @@
 ﻿namespace Quiz.App.ViewModels.Dashboard
 {
-    public class IndexViewModel
+    public class ScoreViewModel
     {
         public string Category { get; set; }
         public int QuestionsCount { get; set; }
