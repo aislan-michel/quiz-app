@@ -1,36 +1,34 @@
-﻿@model Question
+﻿@model Quiz.App.ViewModels.Question.DetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
     Layout = "_Layout";
-    var haveAnswers = @Model.HaveAnswers();
 }
 
 <ul class="list-group">
-    <li class="list-group-item">Text: @Model.Text</li>
-    <li class="list-group-item">Position: @Model.Index</li>
-    <li class="list-group-item">Category: @Model.Category.Name</li>
+    <li class="list-group-item">Text: @Model.Question.Text</li>
+    <li class="list-group-item">Position: @Model.Question.Index</li>
+    <li class="list-group-item">Category: @Model.Question.CategoryName</li>
 </ul>
 
-@if (haveAnswers)
+@if (@Model.HaveAnswers)
 {
     <ul class="list-group mt-4">
         <li class="list-group-item">Answers</li>
     
-    
         @foreach (var answer in @Model.PossibleAnswers)
         {
-            <li class='list-group-item @(answer.IsAnswer ? "bg-success" : "")'>@answer.Answer</li>        
+            <li class='list-group-item @(answer.IsAnswer ? "bg-success" : "")'>@answer.Text</li>        
         }
     
     </ul>
 }
 
 <a class="btn btn-secondary mt-3" asp-action="Index">Back to list</a>
-<a class="btn btn-warning mt-3" asp-action="Simulate" asp-route-id="@Model.Id">Simulate</a>
+<a class="btn btn-warning mt-3" asp-action="Simulate" asp-route-id="@Model.Question.Id">Simulate</a>
 
-@if (@Model.CountAnswers() < 4)
+@if (@Model.AnswersCount < 4)
 {
-    <a class="btn btn-primary mt-3" asp-controller="Answer" asp-action="Create" asp-route-questionId="@Model.Id">Add answers</a>
+    <a class="btn btn-primary mt-3" asp-controller="Answer" asp-action="Create" asp-route-questionId="@Model.Question.Id">Add answers</a>
 }
 

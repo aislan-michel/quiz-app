@@ -9,7 +9,7 @@ namespace Quiz.App.Mappings
     {
         public static IEnumerable<IndexViewModel> ToIndexViewModel(this IEnumerable<Score> scores)
         {
-            return scores.Select(x => new IndexViewModel()
+            return scores.Select(x => new IndexViewModel
             {
                 Category = x.Category.Name,
                 QuestionsCount = x.QuestionsCount,

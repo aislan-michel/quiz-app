@@ -1,5 +1,7 @@
-﻿using Quiz.App.InputModels;
+﻿using System.Linq;
+using Quiz.App.InputModels;
 using Quiz.App.Models;
+using Quiz.App.ViewModels.Question;
 
 namespace Quiz.App.Mappings
 {
@@ -9,6 +11,27 @@ namespace Quiz.App.Mappings
         {
             return new(
                 inputModel.Text, inputModel.Index, inputModel.CategoryId);
+        }
+
+        public static DetailsViewModel ToDetailsViewModel(this Question question)
+        {
+            return new()
+            {
+                AnswersCount = question.CountAnswers(),
+                HaveAnswers = question.HaveAnswers(),
+                Question = new QuestionViewModel
+                {
+                    Id = question.Id,
+                    Text = question.Text,
+                    Index = question.Index,
+                    CategoryName = question.Category.Name
+                },
+                PossibleAnswers = question.PossibleAnswers.Select(x => new PossibleAnswerViewModel
+                {
+                    IsAnswer = x.IsAnswer,
+                    Text = x.Answer
+                })
+            };
         }
     }
 }

@@ -148,8 +148,6 @@ namespace Quiz.App.Controllers
             return View(score);
         }
         
-        
-
         public IActionResult Reset()
         {
             return RedirectToAction(nameof(Index));
