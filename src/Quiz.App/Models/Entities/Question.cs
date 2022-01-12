@@ -6,18 +6,20 @@ namespace Quiz.App.Models.Entities
 {
     public class Question : BaseEntity
     {
+        private IList<PossibleAnswer> _possibleAnswers;
+        
         protected Question() { }
         
         public Question(string text, int index, Guid categoryId) : base()
         {
             Text = text;
-            PossibleAnswers = new List<PossibleAnswer>();
+            _possibleAnswers = new List<PossibleAnswer>();
             Index = index;
             CategoryId = categoryId;
         }
 
         public string Text { get; private set; }
-        public IReadOnlyCollection<PossibleAnswer> PossibleAnswers { get; }
+        public IReadOnlyCollection<PossibleAnswer> PossibleAnswers => _possibleAnswers.ToArray();
         public int Index { get; private set; }
         public Guid CategoryId { get; private set; }
         public Category Category { get; private set; }
@@ -32,7 +34,7 @@ namespace Quiz.App.Models.Entities
             return GetCorrectAnswer().Id == answerId;
         }
 
-        public PossibleAnswer GetCorrectAnswer()
+        private PossibleAnswer GetCorrectAnswer()
         {
             return PossibleAnswers.FirstOrDefault(x => x.IsAnswer);
         }

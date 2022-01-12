@@ -5,18 +5,21 @@ namespace Quiz.App.Models.Entities
 {
     public class Category : BaseEntity
     {
+        private IList<Question> _questions;
+        private IList<Score> _scores;
+        
         protected Category() { }
         
         public Category(string name)
         {
             Name = name;
-            Questions = new List<Question>();
-            Scores = new List<Score>();
+            _questions = new List<Question>();
+            _scores = new List<Score>();
         }
         
         public string Name { get; private set; }
-        public IReadOnlyCollection<Question> Questions { get; private set; }
-        public IReadOnlyCollection<Score> Scores { get; private set; }
+        public IReadOnlyCollection<Question> Questions => _questions.ToArray();
+        public IReadOnlyCollection<Score> Scores => _scores.ToArray();
 
         public bool HaveQuestions()
         {

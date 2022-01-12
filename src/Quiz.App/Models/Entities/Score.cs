@@ -27,13 +27,9 @@ namespace Quiz.App.Models.Entities
         public int IncorrectQuestionsCount { get; private set; }
         public int TimeToFinish { get; }
         public bool Approved { get; }
-        
-        //de qual quiz?
 
         private bool VerifyIfApproved()
         {
-            //TODO: pass the test if passed in 50% of questions
-            
             var x = QuestionsCount / 2;
 
             return CorrectQuestionsCount > x;
