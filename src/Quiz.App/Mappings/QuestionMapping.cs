@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
-using Quiz.App.ViewModels.Question;
+using Quiz.App.Models.ViewModels.Question;
 
 namespace Quiz.App.Mappings
 {

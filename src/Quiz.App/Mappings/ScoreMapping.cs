@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Quiz.App.Models.Entities;
-using Quiz.App.ViewModels.Dashboard;
+using Quiz.App.Models.ViewModels.Dashboard;
 
 namespace Quiz.App.Mappings
 {
@@ -23,7 +23,7 @@ namespace Quiz.App.Mappings
             }; 
         }
 
-        public static ViewModels.Quiz.ScoreViewModel ToQuizScoreViewModel(this Score score)
+        public static Models.ViewModels.Quiz.ScoreViewModel ToQuizScoreViewModel(this Score score)
         {
             return new()
             {

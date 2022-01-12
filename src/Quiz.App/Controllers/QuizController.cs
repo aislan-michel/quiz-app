@@ -8,7 +8,7 @@ using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.Models.InputModels;
 using Quiz.App.Mappings;
 using Quiz.App.Models.Entities;
-using Quiz.App.ViewModels.Quiz;
+using Quiz.App.Models.ViewModels.Quiz;
 
 namespace Quiz.App.Controllers
 {

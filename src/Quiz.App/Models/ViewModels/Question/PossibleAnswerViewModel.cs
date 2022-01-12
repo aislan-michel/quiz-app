@@ -1,4 +1,4 @@
-﻿namespace Quiz.App.ViewModels.Question
+﻿namespace Quiz.App.Models.ViewModels.Question
 {
     public class PossibleAnswerViewModel
     {

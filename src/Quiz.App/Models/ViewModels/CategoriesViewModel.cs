@@ -1,4 +1,4 @@
-﻿namespace Quiz.App.ViewModels
+﻿namespace Quiz.App.Models.ViewModels
 {
     public class CategoriesViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Quiz.App.ViewModels.Dashboard
+namespace Quiz.App.Models.ViewModels.Dashboard
 {
     public class IndexViewModel
     {

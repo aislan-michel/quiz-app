@@ -1,4 +1,4 @@
-﻿namespace Quiz.App.ViewModels.Dashboard
+﻿namespace Quiz.App.Models.ViewModels.Dashboard
 {
     public class ScoreViewModel
     {

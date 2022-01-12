@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Quiz.App.Models.Entities;
-using Quiz.App.ViewModels.Quiz;
+using Quiz.App.Models.ViewModels.Quiz;
 
 namespace Quiz.App.Mappings
 {
