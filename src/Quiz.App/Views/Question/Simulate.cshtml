@@ -1,0 +1,54 @@
+﻿@model Question
+
+@{
+    ViewBag.Title = "Simulate";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Text</h2>
+
+<div class="row">
+    @foreach (var answer in @Model.PossibleAnswers)
+    {
+        <div class="col-sm-6 p-1">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">@answer.Answer</p>
+                    <input hidden value="@Model.Id" name="Id">
+                    <input hidden value="@Model.CategoryId" name="CategoryId">
+                    <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer" onclick="sendAnswer('@Model.Id', '@answer.Id')">
+                        Correct
+                    </button>
+                </div>
+            </div>
+        </div> 
+    }
+</div>
+
+<div class="modal " id="response-question" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+      </div>
+      <button type="button" class="btn btn-primary m-1" onclick="goToQuestionDetails('@Model.Id')">Close</button>
+    </div>
+  </div>
+</div> 
+
+@section Scripts
+{
+    <script>
+        function sendAnswer(questionId, answerId){
+            $.get(`/Question/IsCorrectAnswer?questionId=${questionId}&answerId=${answerId}`, data => {
+                if (data){
+                    $('.modal-title').append('Correct :D');    
+                }else{
+                    $('.modal-title').append('Incorrect D:');    
+                }
+                
+                return $('#response-question').show();
+            });
+        }
+    </script>
+}

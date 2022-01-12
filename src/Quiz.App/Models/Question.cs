@@ -32,7 +32,7 @@ namespace Quiz.App.Models
             return GetCorrectAnswer().Id == answerId;
         }
 
-        private PossibleAnswer GetCorrectAnswer()
+        public PossibleAnswer GetCorrectAnswer()
         {
             return PossibleAnswers.FirstOrDefault(x => x.IsAnswer);
         }

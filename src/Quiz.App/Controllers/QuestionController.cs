@@ -100,5 +100,24 @@ namespace Quiz.App.Controllers
 
             return Json(new {text = question.Text});
         }
+
+        public async Task<IActionResult> Simulate(Guid id)
+        {
+            return View(await _repository.FirstAsync(
+                x => x.Id == id,
+                x => x.Include(y => y.PossibleAnswers)));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> IsCorrectAnswer(Guid questionId, Guid answerId)
+        {
+            var question = await _repository.FirstAsync(
+                x => x.Id == questionId,
+                x => x.Include(y => y.PossibleAnswers));
+
+            var correct = question.IsCorrectAnswer(answerId);
+
+            return Json(new {data = correct});
+        }
     }
 }
