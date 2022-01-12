@@ -16,7 +16,9 @@
                     <p class="card-text">@answer.Answer</p>
                     <input hidden value="@Model.Id" name="Id">
                     <input hidden value="@Model.CategoryId" name="CategoryId">
-                    <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer" onclick="sendAnswer('@Model.Id', '@answer.Id')">Correct</button>
+                    <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer" onclick="sendAnswer('@Model.Id', '@answer.Id')">
+                        Correct
+                    </button>
                 </div>
             </div>
         </div> 
@@ -33,7 +35,6 @@
     </div>
   </div>
 </div> 
-
 
 @section Scripts
 {
