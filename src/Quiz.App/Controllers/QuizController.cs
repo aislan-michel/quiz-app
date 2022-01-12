@@ -40,7 +40,7 @@ namespace Quiz.App.Controllers
             var categories = await _categoryRepository.GetDataAsync(
                 include: x => x.Include(y => y.Questions));
 
-            return View(new IndexViewModel {Categories = categories.ToQuizViewModel()});
+            return View(new IndexViewModel {Categories = categories.ToQuizCategoryViewModel()});
         }
 
         public async Task<IActionResult> StartGame(Guid categoryId)

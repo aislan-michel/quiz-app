@@ -1,6 +1,6 @@
-﻿namespace Quiz.App.Models.ViewModels
+﻿namespace Quiz.App.Models.ViewModels.Category
 {
-    public class CategoriesViewModel
+    public class CategoryViewModel
     {
         public string Name { get; set; }
         public int TotalQuestions { get; set; }

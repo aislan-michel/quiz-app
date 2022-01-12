@@ -27,7 +27,7 @@ namespace Quiz.App.Controllers
             var categories = await _categoryRepository.GetDataAsync(
                 include: x => x.Include(y => y.Questions));
             
-            return View(categories.ToViewModel());
+            return View(categories.ToCategoryIndexViewModel());
         }
 
         [HttpGet]
