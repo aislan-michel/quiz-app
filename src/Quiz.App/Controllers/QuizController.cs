@@ -22,20 +22,17 @@ namespace Quiz.App.Controllers
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Score> _scoreRepository;
         private readonly ICacheRepository<DateTime> _startTimeCache;
-        private readonly ICacheRepository<Question> _questionCache;
 
         public QuizController(
             IRepository<Question> questionRepository, 
             IRepository<Category> categoryRepository, 
             IRepository<Score> scoreRepository, 
-            ICacheRepository<DateTime> startTimeCache, 
-            ICacheRepository<Question> questionCache)
+            ICacheRepository<DateTime> startTimeCache)
         {
             _questionRepository = questionRepository;
             _categoryRepository = categoryRepository;
             _scoreRepository = scoreRepository;
             _startTimeCache = startTimeCache;
-            _questionCache = questionCache;
         }
 
         public async Task<IActionResult> Index()

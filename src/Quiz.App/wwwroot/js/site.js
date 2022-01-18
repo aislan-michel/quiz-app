@@ -28,8 +28,6 @@ function initCategorySelectList(selectedCategoryId){
 }
 
 const utils = {
-  isEqual: function isEqual(val1, val2){
-      return val1 === val2;
-  }
+  isEqual: (val1, val2) => val1 === val2
 };
 

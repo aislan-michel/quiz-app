@@ -23,17 +23,7 @@ namespace Quiz.App.Models.Entities
 
         public bool HaveQuestions()
         {
-            if (Questions == null)
-            {
-                return false;
-            }
-
-            if (!Questions.Any())
-            {
-                return false;
-            }
-
-            return true;
+            return Questions != null && Questions.Any();
         }
     }
 }

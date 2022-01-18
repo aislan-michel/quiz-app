@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Quiz.App.Models.Entities
 {
@@ -41,17 +42,7 @@ namespace Quiz.App.Models.Entities
 
         public bool HaveAnswers()
         {
-            if (PossibleAnswers == null)
-            {
-                return false;
-            }
-
-            if (!PossibleAnswers.Any())
-            {
-                return false;
-            }
-
-            return true;
+            return PossibleAnswers != null && PossibleAnswers.Any();
         }
 
         public int CountAnswers()
