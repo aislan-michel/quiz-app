@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Quiz.App.Models.Entities;
-using Quiz.App.Models.ViewModels.Dashboard;
 using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Mappings
 {
     public static class ScoreMapping
     {
-        public static IndexViewModel ToIndexViewModel(this IEnumerable<Score> scores)
+        public static DashboardIndexViewModel ToDashboardIndexViewModel(this IEnumerable<Score> scores)
         {
             return new()
             {

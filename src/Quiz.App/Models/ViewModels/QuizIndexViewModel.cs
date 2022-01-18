@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Quiz.App.Models.ViewModels.Quiz
+namespace Quiz.App.Models.ViewModels
 {
-    public class IndexViewModel
+    public class QuizIndexViewModel
     {
         public IEnumerable<CategoryViewModel> Categories { get; set; }
     }

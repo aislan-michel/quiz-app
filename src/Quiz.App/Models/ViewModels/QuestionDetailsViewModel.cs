@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Quiz.App.Models.ViewModels.Question
+namespace Quiz.App.Models.ViewModels
 {
-    public class DetailsViewModel
+    public class QuestionDetailsViewModel
     {
         public int AnswersCount { get; set; }
         public bool HaveAnswers { get; set; }

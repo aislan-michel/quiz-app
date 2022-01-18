@@ -8,7 +8,7 @@ using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.Models.InputModels;
 using Quiz.App.Mappings;
 using Quiz.App.Models.Entities;
-using Quiz.App.Models.ViewModels.Quiz;
+using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Controllers
 {
@@ -40,7 +40,7 @@ namespace Quiz.App.Controllers
             var categories = await _categoryRepository.GetDataAsync(
                 include: x => x.Include(y => y.Questions));
 
-            return View(new IndexViewModel {Categories = categories.ToQuizCategoryViewModel()});
+            return View(new QuizIndexViewModel() {Categories = categories.ToCategoryViewModel()});
         }
 
         public async Task<IActionResult> StartGame(Guid categoryId)

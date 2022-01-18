@@ -37,7 +37,7 @@ namespace Quiz.App.Controllers
                     .Include(y => y.PossibleAnswers)
                     .Include(y => y.Category));
             
-            return View(question.ToDetailsViewModel());
+            return View(question.ToQuestionDetailsViewModel());
         }
 
         [HttpGet]

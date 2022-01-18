@@ -27,7 +27,7 @@ namespace Quiz.App.Controllers
                 x => x.UserId == userId,
                 x => x.Include(y => y.Category)); 
             
-            return View(scores.ToIndexViewModel());
+            return View(scores.ToDashboardIndexViewModel());
         }
     }
 }

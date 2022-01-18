@@ -2,7 +2,6 @@
 using System.Linq;
 using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
-using Quiz.App.Models.ViewModels.Category;
 using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Mappings
@@ -14,7 +13,7 @@ namespace Quiz.App.Mappings
             return new(inputModel.Name);
         }
 
-        public static IndexViewModel ToCategoryIndexViewModel(this IEnumerable<Category> categories)
+        public static CategoryIndexViewModel ToCategoryIndexViewModel(this IEnumerable<Category> categories)
         {
             return new()
             {
@@ -26,7 +25,7 @@ namespace Quiz.App.Mappings
             };
         }
 
-        public static IEnumerable<CategoryViewModel> ToQuizCategoryViewModel(this IEnumerable<Category> categories)
+        public static IEnumerable<CategoryViewModel> ToCategoryViewModel(this IEnumerable<Category> categories)
         {
             return categories.Select(x => new CategoryViewModel
             (

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
-using Quiz.App.Models.ViewModels.Question;
 using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Mappings
@@ -14,7 +13,7 @@ namespace Quiz.App.Mappings
                 inputModel.Text, inputModel.Index, inputModel.CategoryId);
         }
 
-        public static DetailsViewModel ToDetailsViewModel(this Question question)
+        public static QuestionDetailsViewModel ToQuestionDetailsViewModel(this Question question)
         {
             return new()
             {
