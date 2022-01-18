@@ -2,6 +2,7 @@
 using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
 using Quiz.App.Models.ViewModels.Question;
+using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Mappings
 {
@@ -20,17 +21,17 @@ namespace Quiz.App.Mappings
                 AnswersCount = question.CountAnswers(),
                 HaveAnswers = question.HaveAnswers(),
                 Question = new QuestionViewModel
-                {
-                    Id = question.Id,
-                    Text = question.Text,
-                    Index = question.Index,
-                    CategoryName = question.Category.Name
-                },
+                (
+                    question.Id,
+                    question.Text,
+                    question.Index,
+                    question.Category.Name
+                ),
                 PossibleAnswers = question.PossibleAnswers.Select(x => new PossibleAnswerViewModel
-                {
-                    IsAnswer = x.IsAnswer,
-                    Text = x.Answer
-                })
+                (
+                    x.IsAnswer,
+                    x.Answer
+                ))
             };
         }
     }

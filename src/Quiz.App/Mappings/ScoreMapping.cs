@@ -2,6 +2,7 @@
 using System.Linq;
 using Quiz.App.Models.Entities;
 using Quiz.App.Models.ViewModels.Dashboard;
+using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Mappings
 {
@@ -12,27 +13,27 @@ namespace Quiz.App.Mappings
             return new()
             {
                 Scores = scores.Select(x => new ScoreViewModel
-                {
-                    Category = x.Category.Name,
-                    QuestionsCount = x.QuestionsCount,
-                    CorrectQuestions = x.CorrectQuestionsCount,
-                    IncorrectQuestions = x.IncorrectQuestionsCount,
-                    TimeToFinish = x.TimeToFinish,
-                    Approved = x.Approved
-                })
+                (
+                    x.Category.Name,
+                    x.QuestionsCount,
+                    x.CorrectQuestionsCount,
+                    x.IncorrectQuestionsCount,
+                    x.TimeToFinish,
+                    x.Approved
+                ))
             }; 
         }
 
-        public static Models.ViewModels.Quiz.ScoreViewModel ToQuizScoreViewModel(this Score score)
+        public static ScoreViewModel ToQuizScoreViewModel(this Score score)
         {
-            return new()
-            {
-                QuestionsCount = score.QuestionsCount,
-                CorrectQuestionsCount = score.CorrectQuestionsCount,
-                IncorrectQuestionsCount = score.IncorrectQuestionsCount,
-                TimeToFinish = score.TimeToFinish,
-                Approved = score.Approved
-            };
+            return new
+            (
+                score.QuestionsCount,
+                score.CorrectQuestionsCount,
+                score.IncorrectQuestionsCount,
+                score.TimeToFinish,
+                score.Approved
+            );
         }
     }
 }

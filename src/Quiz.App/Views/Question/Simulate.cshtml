@@ -41,7 +41,7 @@
     <script>
         function sendAnswer(questionId, answerId){
             $.get(`/Question/IsCorrectAnswer?questionId=${questionId}&answerId=${answerId}`, data => {
-                if (data){
+                if (data === true){
                     $('.modal-title').append('Correct :D');    
                 }else{
                     $('.modal-title').append('Incorrect D:');    

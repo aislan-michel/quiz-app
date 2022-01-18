@@ -9,9 +9,9 @@
     <li class="list-group-item">Choose your category</li>
 </ul>
 
-@foreach (var item in @Model.Categories)
+@foreach (var category in @Model.Categories)
 {
-    <a class='btn btn-primary @(item.CategoryHaveQuestions ? "" : "disabled")' asp-action="StartGame" asp-route-categoryId="@item.CategoryId">
-        @item.CategoryName
+    <a class='btn btn-primary @(category.HaveQuestions ? "" : "disabled")' asp-action="StartGame" asp-route-categoryId="@category.Id">
+        @category.Name
     </a>
 }
