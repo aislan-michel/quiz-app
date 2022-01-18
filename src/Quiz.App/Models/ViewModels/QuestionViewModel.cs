@@ -5,6 +5,15 @@ namespace Quiz.App.Models.ViewModels
 {
     public class QuestionViewModel
     {
+        public QuestionViewModel(
+            Guid id, Guid categoryId, string text, IEnumerable<PossibleAnswerViewModel> possibleAnswers)
+        {
+            Id = id;
+            CategoryId = categoryId;
+            Text = text;
+            PossibleAnswers = possibleAnswers;
+        }
+        
         public QuestionViewModel(Guid id, string text, int index, string categoryName)
         {
             Id = id;

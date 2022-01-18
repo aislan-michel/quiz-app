@@ -31,8 +31,6 @@
             let id = '@Model.CategoryId';
             
             $.get(`/category/get?id=${id}`, (categories) => {
-                console.log(categories)
-                
                 let html = `<option selected disabled>Select one</option>`;      
                 
                 categories.forEach(category => {

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Quiz.App.Infrastructure.Security
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -36,7 +38,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                         </li>
                     }
-                    @if (User.IsInRole("admin"))
+                    @if (User.IsInRole(Role.Admin))
                     {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>

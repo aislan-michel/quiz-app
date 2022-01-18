@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
 using Quiz.App.Models.ViewModels;
@@ -32,6 +33,18 @@ namespace Quiz.App.Mappings
                     x.Answer
                 ))
             };
+        }
+
+        public static QuestionIndexViewModel ToQuestionIndexViewModel(this IEnumerable<Question> questions)
+        {
+            return new(
+                questions.Select(x => new QuestionViewModel(x.Id, x.Text, x.Index, x.Category.Name)));
+        }
+
+        public static QuestionViewModel ToSimulateQuestionViewModel(this Question question)
+        {
+            return new(question.Id, question.CategoryId, question.Text,
+                question.PossibleAnswers.Select(x => new PossibleAnswerViewModel(x.Id, x.Answer)));
         }
     }
 }

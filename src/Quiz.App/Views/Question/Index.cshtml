@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Quiz.App.Models.Entities.Question>
+﻿@model Quiz.App.Models.ViewModels.QuestionIndexViewModel
 
 @{
     ViewData["Title"] = "Questions";
@@ -17,12 +17,12 @@
   </tr>
   </thead>
   <tbody>
-  @foreach (var question in @Model)
+  @foreach (var question in @Model.Questions)
   {
     <tr>
       <td>@question.Text</td>
       <td>@question.Index</td>
-      <td>@question.Category.Name</td>
+      <td>@question.CategoryName</td>
       <td>
         <a class="btn btn-info" asp-action="Details" asp-route-id="@question.Id">Details</a>
         <a class="btn btn-warning" asp-action="Update" asp-route-id="@question.Id">Update</a>
