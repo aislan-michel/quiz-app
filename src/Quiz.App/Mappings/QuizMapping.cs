@@ -9,7 +9,7 @@ namespace Quiz.App.Mappings
     {
         public static QuestionViewModel ToViewModel(this Question question)
         {
-            return new
+            return new 
             (
                 question.Id,
                 question.Text,

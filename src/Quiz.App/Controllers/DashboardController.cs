@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ namespace Quiz.App.Controllers
                 x => x.UserId == userId,
                 x => x.Include(y => y.Category)); 
             
-            return View(scores.ToDashboardIndexViewModel());
+            return View(scores.OrderByDescending(x => x.CreatedAt).ToDashboardIndexViewModel());
         }
     }
 }

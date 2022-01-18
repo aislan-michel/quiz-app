@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -87,13 +86,6 @@ namespace Quiz.App.Controllers
             await _userManager.AddToRoleAsync(user, Role.Common);
             
             return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> GetMyScores(string userId) //preciso criar uma ScoreController?
-        {
-            var user = await _userManager.FindByIdAsync(userId);
-            
-            throw new NotImplementedException();
         }
     }
 }

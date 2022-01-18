@@ -30,9 +30,11 @@ namespace Quiz.App.Models.Entities
 
         private bool VerifyIfApproved()
         {
-            var x = QuestionsCount / 2;
+            const int two = 2;
+            
+            var x = QuestionsCount / two;
 
-            return CorrectQuestionsCount > x;
+            return CorrectQuestionsCount >= x;
         }
 
         private void SetIncorrectQuestionsCount()

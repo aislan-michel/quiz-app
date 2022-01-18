@@ -21,14 +21,17 @@ namespace Quiz.App.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Guid categoryId)
         {
             var questions = await _repository.GetDataAsync(
-                include: x => x.Include(y => y.Category));
+                categoryId != Guid.Empty ? x => x.CategoryId == categoryId : null,
+                x => x.Include(y => y.Category));
+
+            ViewBag.SelectedCategoryId = categoryId;
             
             return View(questions.OrderBy(x => x.Index).ToQuestionIndexViewModel());
         }
-
+        
         public async Task<IActionResult> Details(Guid id)
         {
             var question = await _repository.FirstAsync(

@@ -22,17 +22,20 @@ namespace Quiz.App.Controllers
         private readonly IRepository<Category> _categoryRepository;
         private readonly IRepository<Score> _scoreRepository;
         private readonly ICacheRepository<DateTime> _startTimeCache;
+        private readonly ICacheRepository<Question> _questionCache;
 
         public QuizController(
             IRepository<Question> questionRepository, 
             IRepository<Category> categoryRepository, 
             IRepository<Score> scoreRepository, 
-            ICacheRepository<DateTime> startTimeCache)
+            ICacheRepository<DateTime> startTimeCache, 
+            ICacheRepository<Question> questionCache)
         {
             _questionRepository = questionRepository;
             _categoryRepository = categoryRepository;
             _scoreRepository = scoreRepository;
             _startTimeCache = startTimeCache;
+            _questionCache = questionCache;
         }
 
         public async Task<IActionResult> Index()
@@ -51,6 +54,13 @@ namespace Quiz.App.Controllers
 
             return RedirectToAction("Question", new {categoryId});
         }
+        
+        private async Task SetupGame(Guid categoryId)
+        {
+            _currentQuestion = 1;
+            _correctAnswers = 0;
+            _questionsCount = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
+        }
 
         private void StartTime()
         {
@@ -61,18 +71,13 @@ namespace Quiz.App.Controllers
             _startTimeCache.Set(userId, startDate);
         }
 
-        private async Task SetupGame(Guid categoryId)
-        {
-            _currentQuestion = 1;
-            _correctAnswers = 0;
-            _questionsCount = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
-        }
-
         public async Task<IActionResult> Question(Guid categoryId)
         {
             var question = await _questionRepository.FirstAsync(
                 x => x.Index == _currentQuestion && x.CategoryId == categoryId,
-                x => x.Include(y => y.PossibleAnswers));
+                x => x
+                    .Include(y => y.PossibleAnswers)
+                    .Include(y => y.Category));
 
             if (question is null)
             {
@@ -95,7 +100,13 @@ namespace Quiz.App.Controllers
         {
             var question = await _questionRepository.FirstAsync(
                 x => x.Index == _currentQuestion && x.CategoryId == categoryId,
-                x => x.Include(y => y.PossibleAnswers));
+                x =>
+                {
+                    return x
+                        .Include(y => y.PossibleAnswers)
+                        .Include(y => y.Category);
+                    
+                });
 
             if (question is null)
             {
