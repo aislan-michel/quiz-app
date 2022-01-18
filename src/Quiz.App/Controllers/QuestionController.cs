@@ -72,7 +72,7 @@ namespace Quiz.App.Controllers
                     .Include(y => y.PossibleAnswers)
                     .Include(y => y.Category));
             
-            return View(question);
+            return View(question.ToViewModel());
         }
 
         [HttpPost]
@@ -119,7 +119,7 @@ namespace Quiz.App.Controllers
 
             var correct = question.IsCorrectAnswer(answerId);
 
-            return Json(new {data = correct});
+            return Json(correct);
         }
     }
 }

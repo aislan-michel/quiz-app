@@ -2,7 +2,7 @@
 {
     public static class Role
     {
-        public static string Admin => "Admin";
-        public static string Common => "Common";
+        public static string Admin => "admin";
+        public static string Common => "common";
     }
 }

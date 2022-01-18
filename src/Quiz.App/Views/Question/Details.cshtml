@@ -18,7 +18,7 @@
     
         @foreach (var answer in @Model.PossibleAnswers)
         {
-            <li class='list-group-item @(answer.IsAnswer ? "bg-success" : "")'>@answer.Text</li>        
+            <li class='list-group-item @(answer.IsAnswer ? "bg-success" : "")'>@Html.Raw(answer.Text)</li>        
         }
     
     </ul>
