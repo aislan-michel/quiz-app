@@ -16,8 +16,6 @@ namespace Quiz.App.Infrastructure.Repositories
         
         void Remove(T entity);
         
-        void Inactivate(T entity);
-        
         void Update(T entity);
         
         Task SaveAsync();

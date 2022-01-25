@@ -35,11 +35,6 @@ namespace Quiz.App.Infrastructure.Repositories
             _dbSet.Remove(entity);
         }
 
-        public void Inactivate(T entity)
-        {
-            _dbSet.Update(entity);
-        }
-
         public void Update(T entity)
         {
             _dbSet.Update(entity);

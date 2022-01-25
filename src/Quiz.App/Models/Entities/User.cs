@@ -40,5 +40,10 @@ namespace Quiz.App.Models.Entities
 
             return userName.ToString().ToLower();
         }
+
+        public string FullName()
+        {
+            return $"${FirstName} ${LastName}";
+        }
     }
 }

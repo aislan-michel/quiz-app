@@ -1,22 +1,29 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Quiz.App.Infrastructure.Security;
 using Quiz.App.Models.InputModels;
 using Quiz.App.Mappings;
+using Quiz.App.Models.Entities;
 
 namespace Quiz.App.Controllers
 {
     [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
-        public UserController()
+        private readonly UserManager<User> _userManager;
+
+        public UserController(UserManager<User> userManager)
         {
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            var users = await _userManager.GetUsersInRoleAsync(Role.Common);
+            
+            return View(users.ToIndexViewModel());
         }
 
         [HttpGet]
@@ -33,14 +40,11 @@ namespace Quiz.App.Controllers
                 return View(inputModel);
             }
             
-            var model = inputModel.ToModel();
+            var user = inputModel.ToModel();
+
+            await _userManager.CreateAsync(user);
             
-            return RedirectToAction("Details", new {id = model.Id});
-        }
-        
-        public async Task<IActionResult> Details(Guid id)
-        {
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

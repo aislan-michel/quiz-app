@@ -85,7 +85,7 @@ namespace Quiz.App.Controllers
 
             await _userManager.AddToRoleAsync(user, Role.Common);
             
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(SignIn));
         }
     }
 }
