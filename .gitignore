@@ -360,3 +360,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+.ideia
+.vs
+./src/Quiz.App/bin
+./src/Quiz.App/obj
