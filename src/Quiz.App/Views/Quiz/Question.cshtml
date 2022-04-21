@@ -1,0 +1,38 @@
+﻿@model Quiz.App.ViewModels.Quiz.QuestionViewModel
+
+@{
+    ViewData["Title"] = $"Question {@Model.Index}";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Text</h2>
+
+<form asp-action="SendAnswer" method="post">
+    <div class="row">
+        @foreach (var answer in @Model.PossibleAnswers)
+        {
+            <div class="col-sm-6 p-1">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">@answer.Answer</p>
+                        <input hidden value="@Model.Id" name="Id">
+                        <input hidden value="@Model.CategoryId" name="CategoryId">
+                        <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer">Correct</button>
+                    </div>
+                </div>
+            </div> 
+        }
+    </div>      
+</form>
+
+@*TODO: Create a view component for this*@
+@if (!ViewData.ModelState.IsValid)
+{
+    <div>
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(x => x.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+            <a class="btn btn-primary" asp-controller="Quiz" asp-action="NextQuestion" asp-route-categoryId="@Model.CategoryId">Next question</a>
+    </div>
+}

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Quiz.App.ViewModels.CategoriesViewModel>
+
+@{
+    ViewData["title"] = "Index";
+    Layout = "_Layout";
+}
+
+<a class="btn btn-primary mb-3" asp-action="Create">Add category</a>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Total of questions</th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  @foreach (var category in @Model)
+  {
+    <tr>
+      <td>@category.Name</td>
+      <td>@category.TotalQuestions</td>
+      <td>
+        <a class="btn btn-warning">Details</a>
+      </td>
+    </tr> 
+  }
+  </tbody>
+</table>
+
+<p class="text-black">Total of categories: @Model.Count()</p>

@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "_Layout";
+}
+
+<form method="post" asp-action="Create">
+     <div class="mb-3">
+         <label class="form-label">First Name</label>
+         <input type="text" class="form-control" name="firstName">
+     </div>
+   
+     <div class="mb-3">
+         <label class="form-label">Last Name</label>
+         <input type="text" class="form-control" name="lastName">
+     </div>
+     
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="text" class="form-control" name="password">
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Role</label>
+        <input type="text" class="form-control" name="role">
+    </div>
+ 
+    <a class="btn btn-secondary" asp-action="Index">Back to list</a>
+     <button type="submit" class="btn btn-primary">Submit</button>
+ </form>

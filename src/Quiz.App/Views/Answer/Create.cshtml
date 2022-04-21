@@ -1,0 +1,53 @@
+﻿@model Quiz.App.InputModels.CreateAnswerInputModel
+
+@{
+    ViewData["title"] = "Create";
+    Layout = "_Layout";
+}
+
+<div class="mb-3">
+    <label class="form-label">Question</label>
+    <textarea class="form-control" name="text" disabled id="question-text"></textarea>
+</div>
+
+<form method="post" asp-action="Create">
+
+    @for (var i = 0; i <= 3; i++)
+    {
+        <div class="mb-3">
+            <div class="mb-3">
+                <label class="form-label">Answer @Html.Raw(i + 1)</label>
+                <textarea class="form-control" name="answers[@i]"></textarea>
+            </div>
+        </div> 
+    }
+
+    <div class="mb-3">
+        <label class="form-label">Correct answer</label>
+        <select class="custom-select" name="correct">
+            <option disabled selected>Select one</option>
+            <option value="1">number 1</option>
+            <option value="2">number 2</option>
+            <option value="3">number 3</option>
+            <option value="4">number 4</option>
+        </select>
+    </div>
+    
+    <input hidden value="@Model.QuestionId" name="questionId">
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    
+</form>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(() => {
+            const questionId = '@Model.QuestionId';
+            
+            $.get(`/question/getText?id=${questionId}`, (data) => { 
+                $("#question-text").text(data.text);
+            });
+        });
+    </script>
+}
