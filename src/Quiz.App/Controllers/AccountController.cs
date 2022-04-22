@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Extensions;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
 
 namespace Quiz.App.Controllers
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Quiz.App.Models
+namespace Quiz.App.Models.Entities
 {
-    public class PossibleAnswer : BaseModel
+    public class PossibleAnswer : BaseEntity
     {
         protected PossibleAnswer() { }
         

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
 using Quiz.App.ViewModels.Quiz;
 
 namespace Quiz.App.Mappings
