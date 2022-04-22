@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quiz.App.Infrastructure;
 using Quiz.App.Infrastructure.Repositories;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

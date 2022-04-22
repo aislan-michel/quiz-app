@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
 
 namespace Quiz.App.Infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : BaseModel
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly QuizDbContext _context;
         private readonly DbSet<T> _dbSet;

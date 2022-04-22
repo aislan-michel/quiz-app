@@ -2,11 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
 using Quiz.App.Mappings;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
 
 namespace Quiz.App.Controllers
 {

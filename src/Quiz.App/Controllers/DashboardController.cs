@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Quiz.App.Extensions;
 using Quiz.App.Infrastructure.Repositories;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
 
 namespace Quiz.App.Controllers
 {

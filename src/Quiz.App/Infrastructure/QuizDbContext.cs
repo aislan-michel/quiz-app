@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Configurations;
-using Quiz.App.Models;
+using Quiz.App.Models.Entities;
 
 namespace Quiz.App.Infrastructure
 {

@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Quiz.App.Extensions;
 
-namespace Quiz.App.Models
+namespace Quiz.App.Models.Entities
 {
     public class User : IdentityUser
     {
