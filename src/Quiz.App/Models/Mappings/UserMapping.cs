@@ -1,7 +1,7 @@
 ﻿using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
 
-namespace Quiz.App.Mappings
+namespace Quiz.App.Models.Mappings
 {
     public static class UserMapping
     {
@@ -12,7 +12,7 @@ namespace Quiz.App.Mappings
 
         public static User ToModel(this RegisterUserInputModel inputModel)
         {
-            return new(inputModel.FirstName, inputModel.LastName);
+            return new(inputModel.FirstName, inputModel.LastName, inputModel.UserName);
         }
     }
 }

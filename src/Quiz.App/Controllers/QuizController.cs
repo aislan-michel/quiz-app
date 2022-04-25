@@ -140,7 +140,7 @@ namespace Quiz.App.Controllers
             return View(score.ToQuizViewModel());
         }
 
-        public IActionResult Reset()
+        public IActionResult Finish()
         {
             ResetGame();
 

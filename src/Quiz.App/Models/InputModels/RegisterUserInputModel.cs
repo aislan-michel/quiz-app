@@ -10,6 +10,9 @@ namespace Quiz.App.Models.InputModels
         
         [Required]
         public string LastName { get; set; }
+
+        [Required]
+        public string UserName { get; set; }
         
         [Required]
         [PasswordPropertyText]

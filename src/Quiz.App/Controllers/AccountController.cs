@@ -1,12 +1,12 @@
-﻿using System;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Extensions;
 using Quiz.App.Models.InputModels;
-using Quiz.App.Mappings;
+using Quiz.App.Models;
 using Quiz.App.Models.Entities;
+using Quiz.App.Models.Mappings;
 
 namespace Quiz.App.Controllers
 {
@@ -83,16 +83,9 @@ namespace Quiz.App.Controllers
                 return View(inputModel);
             }
 
-            await _userManager.AddToRoleAsync(user, "common");
+            await _userManager.AddToRoleAsync(user, Roles.Common);
             
-            return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> GetMyScores(string userId) //preciso criar uma ScoreController?
-        {
-            var user = await _userManager.FindByIdAsync(userId);
-            
-            throw new NotImplementedException();
+            return RedirectToAction(nameof(SignIn));
         }
     }
 }

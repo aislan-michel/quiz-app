@@ -21,6 +21,14 @@ namespace Quiz.App.Models.Entities
             _scores = new List<Score>();
         }
         
+        public User(string firstName, string lastName, string userName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            UserName = userName;
+            _scores = new List<Score>();
+        }
+        
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
 

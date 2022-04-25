@@ -23,15 +23,3 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
-
-@*TODO: Create a view component for this*@
-@*Not working*@
-@if (ViewData.ModelState.Keys.Contains("identity"))
-{
-    <div>
-        @foreach (var error in ViewData.ModelState.GetErrors())
-        {
-            <p>@error</p>
-        }
-    </div>
-}

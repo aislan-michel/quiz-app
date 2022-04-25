@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - Quiz.App</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
@@ -24,20 +24,15 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
-                    @if (User.Identity.IsAuthenticated)
+                    
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(Roles.Admin))
                     {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Quiz" asp-action="Index">Start Quiz</a>
                         </li>   
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignOut">Sign out</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                         </li>
-                    }
-                    @if (User.IsInRole("admin"))
-                    {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>
                         </li>
@@ -46,8 +41,25 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>   
+                        </li>  
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignOut">Sign out</a>
+                        </li>
                     }
+                    
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(Roles.Common))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Quiz" asp-action="Index">Start Quiz</a>
+                        </li>   
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SignOut">Sign out</a>
+                        </li>
+                    }
+                    
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
