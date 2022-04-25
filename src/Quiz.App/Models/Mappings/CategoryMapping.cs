@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Quiz.App.InputModels;
+using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
-using Quiz.App.Models.ViewModels.Category;
+using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Models.Mappings
 {

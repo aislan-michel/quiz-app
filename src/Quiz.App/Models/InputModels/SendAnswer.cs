@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Quiz.App.InputModels
+namespace Quiz.App.Models.InputModels
 {
     public class SendAnswer
     {

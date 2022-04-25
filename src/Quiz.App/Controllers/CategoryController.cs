@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Repositories;
-using Quiz.App.InputModels;
+using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
 using Quiz.App.Models.Mappings;
 

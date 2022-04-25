@@ -1,6 +1,6 @@
 using System;
 
-namespace Quiz.App.Models.ViewModels.Question;
+namespace Quiz.App.Models.ViewModels;
 
 public class PossibleAnswersViewModel
 {
