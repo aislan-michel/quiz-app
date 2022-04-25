@@ -1,4 +1,4 @@
-﻿@model Quiz.App.Models.Entities.Question
+﻿@model Quiz.App.Models.ViewModels.Question.QuestionViewModel
 
 @{
     ViewBag.Title = "Simulate";
@@ -13,10 +13,10 @@
         <div class="col-sm-6 p-1">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-text">@answer.Answer</p>
+                    <p class="card-text">@answer.Text</p>
                     <input hidden value="@Model.Id" name="Id">
                     <input hidden value="@Model.CategoryId" name="CategoryId">
-                    <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer" onclick="sendAnswer('@Model.Id', '@answer.Id')">
+                    <button type="submit" class="btn btn-success" name="Answer" value="@answer.Text" onclick="sendAnswer('@Model.Id', '@answer.Id')">
                         Correct
                     </button>
                 </div>

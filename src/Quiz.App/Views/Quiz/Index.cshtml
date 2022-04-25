@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Quiz.App.ViewModels.Quiz.IndexViewModel>
+﻿@model IEnumerable<Quiz.App.Models.ViewModels.Category.CategoryViewModel>
 
 @{
     ViewData["Title"] = "Start Game";
@@ -11,7 +11,7 @@
 
 @foreach (var item in @Model)
 {
-    <a class='btn btn-primary @(item.CategoryHaveQuestions ? "" : "disabled")' asp-action="StartGame" asp-route-categoryId="@item.CategoryId">
-        @item.CategoryName
+    <a class='btn btn-primary @(item.HaveQuestions ? "" : "disabled")' asp-action="StartGame" asp-route-categoryId="@item.Id">
+        @item.Name
     </a>
 }

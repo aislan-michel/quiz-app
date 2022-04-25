@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Quiz.App.ViewModels;
+using Quiz.App.Models.ViewModels;
 
 namespace Quiz.App.Controllers
 {

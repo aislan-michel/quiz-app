@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
-using Quiz.App.Mappings;
 using Quiz.App.Models.Entities;
+using Quiz.App.Models.Mappings;
 
 namespace Quiz.App.Controllers
 {
@@ -26,7 +26,7 @@ namespace Quiz.App.Controllers
             var questions = await _repository.GetDataAsync(
                 include: x => x.Include(y => y.Category));
             
-            return View(questions.OrderBy(x => x.Index));
+            return View(questions.OrderBy(x => x.Index).ToViewModel());
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -37,13 +37,13 @@ namespace Quiz.App.Controllers
                     .Include(y => y.PossibleAnswers)
                     .Include(y => y.Category));
             
-            return View(question);
+            return View(question.ToDetailsViewModel());
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View(new CreateQuestionInputModel());
         }
 
         [HttpPost]
@@ -72,7 +72,7 @@ namespace Quiz.App.Controllers
                     .Include(y => y.PossibleAnswers)
                     .Include(y => y.Category));
             
-            return View(question);
+            return View(question.ToUpdateViewModel());
         }
 
         [HttpPost]
@@ -103,9 +103,11 @@ namespace Quiz.App.Controllers
 
         public async Task<IActionResult> Simulate(Guid id)
         {
-            return View(await _repository.FirstAsync(
-                x => x.Id == id,
-                x => x.Include(y => y.PossibleAnswers)));
+            var question = await _repository.FirstAsync(
+                            x => x.Id == id,
+                            x => x.Include(y => y.PossibleAnswers));
+            
+            return View(question.ToSimulateViewModel());
         }
 
         [HttpGet]

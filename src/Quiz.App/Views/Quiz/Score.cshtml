@@ -1,4 +1,4 @@
-﻿@model Quiz.App.Models.Entities.Score
+﻿@model Quiz.App.Models.ViewModels.Score.ScoreViewModel
 
 @{
     ViewData["Title"] = "Score";
@@ -18,7 +18,7 @@
 </div>
 
 <div class="alert alert-secondary" role="alert">
-    Time to finish: @Model.TimeToFinish seconds
+    Time to finish: @Model.SecondsToFinish seconds
 </div>
 
 @if (@Model.Approved)

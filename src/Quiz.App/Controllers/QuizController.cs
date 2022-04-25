@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Quiz.App.Extensions;
 using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.InputModels;
-using Quiz.App.Mappings;
 using Quiz.App.Models.Entities;
+using Quiz.App.Models.Mappings;
 
 namespace Quiz.App.Controllers
 {
@@ -39,7 +39,7 @@ namespace Quiz.App.Controllers
             var categories = await _categoryRepository.GetDataAsync(
                 include: x => x.Include(y => y.Questions));
 
-            return View(categories.ToIndexViewModel());
+            return View(categories.ToQuizViewModel());
         }
 
         public async Task<IActionResult> StartGame(Guid categoryId)
@@ -50,18 +50,21 @@ namespace Quiz.App.Controllers
             
             _startDateCache.Set(userId, startDate);
 
-            _index = 1;
-            _correctAnswers = 0;
+            ResetGame();
+            
             _questionsCount = await _questionRepository.CountAsync(x => x.CategoryId == categoryId);
 
-            return RedirectToAction("Question", new {categoryId});
+            return RedirectToAction(nameof(Question), new {categoryId});
         }
 
         public async Task<IActionResult> Question(Guid categoryId)
         {
             var question = await _questionRepository.FirstAsync(
-                x => x.Index == _index && x.CategoryId == categoryId,
-                x => x.Include(y => y.PossibleAnswers));
+                            expression: x => x.CategoryId == categoryId,
+                            include: x => x
+                                            .Include(y => y.PossibleAnswers)
+                                            .Include(y => y.Category),
+                            skip: _index);
 
             if (question is null)
             {
@@ -72,19 +75,20 @@ namespace Quiz.App.Controllers
             {
                 ModelState.AddModelError("", "this question don't have answers");
 
-                return View(question.ToViewModel());
+                return View(question.ToQuizViewModel());
             }
 
             _index++;
 
-            return View(question.ToViewModel());
+            return View(question.ToQuizViewModel());
         }
         
         public async Task<IActionResult> NextQuestion(Guid categoryId)
         {
             var question = await _questionRepository.FirstAsync(
-                x => x.Index == _index && x.CategoryId == categoryId,
-                x => x.Include(y => y.PossibleAnswers));
+                x => x.CategoryId == categoryId,
+                x => x.Include(y => y.PossibleAnswers),
+                skip: _index);
 
             if (question is null)
             {
@@ -95,12 +99,12 @@ namespace Quiz.App.Controllers
             {
                 ModelState.AddModelError("", "this question don't have answers");
 
-                return View("Question", question.ToViewModel());
+                return View(nameof(Question), question.ToQuizViewModel());
             }
 
             _index++;
 
-            return View("Question", question.ToViewModel());
+            return View(nameof(Question), question.ToQuizViewModel());
         }
 
         public async Task<IActionResult> SendAnswer(SendAnswer inputModel)
@@ -114,7 +118,7 @@ namespace Quiz.App.Controllers
                 _correctAnswers++;
             }
 
-            return RedirectToAction("Question", new{ categoryId = inputModel.CategoryId.ToString() });
+            return RedirectToAction(nameof(Question), new{ categoryId = inputModel.CategoryId.ToString() });
         }
 
         public async Task<IActionResult> Score(Guid categoryId)
@@ -133,15 +137,20 @@ namespace Quiz.App.Controllers
 
             await _scoreRepository.SaveAsync();
             
-            return View(score);
+            return View(score.ToQuizViewModel());
         }
 
         public IActionResult Reset()
         {
-            _correctAnswers = 0;
-            _index = 1;
+            ResetGame();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private static void ResetGame()
+        {
+            _correctAnswers = 0;
+            _index = 0;
         }
     }
 }
