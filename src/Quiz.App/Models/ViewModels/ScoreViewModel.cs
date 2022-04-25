@@ -1,4 +1,4 @@
-namespace Quiz.App.Models.ViewModels.Score;
+namespace Quiz.App.Models.ViewModels;
 
 public class ScoreViewModel
 {

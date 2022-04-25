@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Infrastructure.Repositories;
-using Quiz.App.InputModels;
+using Quiz.App.Models.InputModels;
 using Quiz.App.Models.Entities;
 using Quiz.App.Models.Mappings;
 

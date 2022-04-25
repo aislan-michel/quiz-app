@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Extensions;
-using Quiz.App.InputModels;
+using Quiz.App.Models.InputModels;
 using Quiz.App.Mappings;
 using Quiz.App.Models.Entities;
 

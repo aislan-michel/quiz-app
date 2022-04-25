@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Quiz.App.InputModels
+namespace Quiz.App.Models.InputModels
 {
     public class RegisterUserInputModel
     {

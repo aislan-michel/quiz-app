@@ -1,6 +1,6 @@
 using System;
 
-namespace Quiz.App.Models.ViewModels.Category;
+namespace Quiz.App.Models.ViewModels;
 
 public class CategoryViewModel
 {
