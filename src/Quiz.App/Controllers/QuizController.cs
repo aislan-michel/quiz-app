@@ -85,10 +85,9 @@ namespace Quiz.App.Controllers
         
         public async Task<IActionResult> NextQuestion(Guid categoryId)
         {
-            var question = await _questionRepository.FirstAsync(
+            var question = await _questionRepository.FirstAsync(skip: _index,
                 x => x.CategoryId == categoryId,
-                x => x.Include(y => y.PossibleAnswers),
-                skip: _index);
+                x => x.Include(y => y.PossibleAnswers));
 
             if (question is null)
             {
