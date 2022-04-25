@@ -1,4 +1,4 @@
-﻿@model Quiz.App.Models.Entities.Question
+﻿@model Quiz.App.Models.ViewModels.Question.QuestionViewModel
 
 @{
     ViewBag.Title = "Update";
@@ -28,7 +28,7 @@
 {
     <script>
         $(document).ready(() => {
-            let id = '@Model.CategoryId';
+            let id = '@Model.CategoryId.ToString()';
             
             $.get(`/category/get?id=${id}`, (categories) => {
                 console.log(categories)

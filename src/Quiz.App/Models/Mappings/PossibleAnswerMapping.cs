@@ -3,9 +3,9 @@ using System.Linq;
 using Quiz.App.InputModels;
 using Quiz.App.Models.Entities;
 
-namespace Quiz.App.Mappings
+namespace Quiz.App.Models.Mappings
 {
-    public static class AnswerMapping
+    public static class PossibleAnswerMapping
     {
         public static IEnumerable<PossibleAnswer> ToModel(this CreateAnswerInputModel inputModel)
         {

@@ -108,6 +108,29 @@ namespace Quiz.App.Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<T> FirstAsync(
+                        Expression<Func<T, bool>> expression = null, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, int? skip = null)
+        {
+            var query = _dbSet.AsQueryable();
+
+            if(expression != null)
+            {
+                query = query.Where(expression);
+            }
+
+            if(include != null)
+            {
+                query = include(query);
+            }
+
+            if (skip.HasValue)
+            {
+                query = query.Skip(skip.Value);
+            }
+
+            return await query.FirstOrDefaultAsync();
+        }
+
         public void Dispose()
         {
             _context.Dispose();

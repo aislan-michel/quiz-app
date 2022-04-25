@@ -7,13 +7,13 @@
 <form method="post" asp-action="Create">
     <div class="mb-3">
         <label class="form-label">Text</label>
-        <textarea class="form-control" name="text"></textarea>
+        <textarea class="form-control" name="text">@Model.Text</textarea>
         @Html.ValidationMessageFor(x => x.Text, "", new {@class = "invalid-feedback"})
     </div>
   
     <div class="mb-3">
         <label class="form-label">Position</label>
-        <input type="number" class="form-control" name="index">
+        <input type="number" class="form-control" name="index" value="@Model.Index">
         @Html.ValidationMessageFor(x => x.Index, "", new {@class = "invalid-feedback"})
     </div>
     
@@ -32,14 +32,15 @@
     <script>
         $(document).ready(() => {
             $.get("/category/get", (categories) => {
-                console.log(categories)
-                
-                let html = `<option selected disabled>Select one</option>`;                
+                let html = `<option selected disabled>Select one</option>`;
+                let categoryId = "@Model.CategoryId";
                 
                 categories.forEach(category => {
-                    html += `
-                      <option value="${category.value}">${category.text}</option>
-                    `;
+                    if (category.value === categoryId){
+                        html += `<option value="${category.value}" selected>${category.text}</option>`;    
+                    } else {
+                        html += `<option value="${category.value}">${category.text}</option>`;
+                    }
                 });
                 
                 $(".custom-select").html(html);

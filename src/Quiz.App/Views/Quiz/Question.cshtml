@@ -1,4 +1,4 @@
-﻿@model Quiz.App.ViewModels.Quiz.QuestionViewModel
+﻿@model Quiz.App.Models.ViewModels.Question.QuestionViewModel
 
 @{
     ViewData["Title"] = $"Question {@Model.Index}";
@@ -14,10 +14,10 @@
             <div class="col-sm-6 p-1">
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-text">@answer.Answer</p>
+                        <p class="card-text">@answer.Text</p>
                         <input hidden value="@Model.Id" name="Id">
                         <input hidden value="@Model.CategoryId" name="CategoryId">
-                        <button type="submit" class="btn btn-success" name="Answer" value="@answer.Answer">Correct</button>
+                        <button type="submit" class="btn btn-success" name="Answer" value="@answer.Text">Correct</button>
                     </div>
                 </div>
             </div> 
