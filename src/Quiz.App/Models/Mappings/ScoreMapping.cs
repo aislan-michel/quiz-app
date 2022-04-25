@@ -11,6 +11,7 @@ public static class ScoreMapping
     {
         return scores.Select(x => new ScoreViewModel()
         {
+                        Id = x.Id,
                         CategoryName = x.Category.Name,
                         QuestionsCount = x.QuestionsCount,
                         CorrectQuestionsCount = x.CorrectQuestionsCount,

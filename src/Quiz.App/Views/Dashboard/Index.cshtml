@@ -14,6 +14,7 @@
     <th scope="col">Incorrect Questions</th>
     <th scope="col">Time to Finish</th>
     <th scope="col">Passed</th>
+    <th scope="col">Actions</th>
 
   </tr>
   </thead>
@@ -27,7 +28,24 @@
       <td>@score.IncorrectQuestionsCount</td>
       <td>@score.SecondsToFinish seconds</td>
       <td>@(score.Approved ? "yes" : "no")</td>
+      <td>
+        <a href="#" onclick="generateShareUrl('@score.Id')">
+          Share on Facebook
+        </a>
+      </td>
     </tr> 
   }
   </tbody>
 </table>
+
+@section Scripts
+{
+  <script>
+    function generateShareUrl(scoreId){
+      const url = `localhost:5001/Share/Score/${scoreId}`;
+      const toShared = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+      
+      window.open(toShared, "_blank");
+    }
+  </script>
+}

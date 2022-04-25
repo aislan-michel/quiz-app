@@ -35,8 +35,8 @@ namespace Quiz.App.Infrastructure.Repositories
             int? take = null);
         
         Task<T> FirstAsync(
+                        int skip,
                         Expression<Func<T, bool>> expression = null,
-                        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null,
-                        int? skip = null);
+                        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
     }
 }
