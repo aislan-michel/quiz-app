@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -5,17 +7,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quiz.App.Infrastructure;
 using Quiz.App.Infrastructure.Repositories;
+using Quiz.App.Models;
 using Quiz.App.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<QuizDbContext>(options =>
 {
-    const string connection = "server=localhost;port=3307;userid=root;password=123456;database=quiz-bd";
-              
+    var host = builder.Configuration["DBHOST"] ?? "localhost";
+    var port = builder.Configuration["DBPORT"] ?? "3306";
+    var password = builder.Configuration["DBPASSWORD"] ?? "201800459";
+
+    var connection = $"server={host};port={port};userid=root;password={password};database=quiz";
+
     options.UseMySql(connection, ServerVersion.AutoDetect(connection), optionsBuilder =>
     {
         optionsBuilder.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery); //https://docs.microsoft.com/pt-br/ef/core/querying/single-split-queries
@@ -40,11 +46,40 @@ builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<QuizDbContext>();
+
+    var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+
+    if (pendingMigrations.Any())
+    {
+        await context.Database.MigrateAsync();
+        
+        context.Roles.AddRange(new List<IdentityRole>(2)
+        {
+            new("common"),
+            new("admin")
+        });
+
+        await context.SaveChangesAsync();
+
+        //todo: create identityService?
+        var userManager = services.GetRequiredService<UserManager<User>>();
+
+        var admin = new User("admin", "master", "admin");
+
+        await userManager.CreateAsync(admin, "Teste@123");
+
+        await userManager.AddToRoleAsync(admin, Roles.Admin);
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 else

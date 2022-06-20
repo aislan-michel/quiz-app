@@ -74,6 +74,7 @@ namespace Quiz.App.Controllers
             
             var user = inputModel.ToModel();
 
+            //todo: create identityService?
             var created = await _userManager.CreateAsync(user, inputModel.Password);
 
             if (!created.Succeeded)
