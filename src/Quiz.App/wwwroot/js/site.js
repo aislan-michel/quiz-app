@@ -6,3 +6,10 @@
 function goToQuestionDetails(questionId){
     window.location.href = `/Question/Details/${questionId}`;
 }
+
+function generateShareUrl(scoreId){
+    const url = `localhost:5001/Share/Score/${scoreId}`;
+    const toShared = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+
+    window.open(toShared, "_blank");
+}

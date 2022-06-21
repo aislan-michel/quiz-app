@@ -19,4 +19,20 @@
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Infrastructure\Notification\INotificator\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Infrastructure\Notification\INotificator\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Infrastructure\Notification\INotificator\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Infrastructure\Notification\INotificator\**" />
+    </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@ namespace Quiz.App.Models.Mappings
 {
     public static class PossibleAnswerMapping
     {
-        public static IEnumerable<PossibleAnswer> ToModel(this CreateAnswerInputModel inputModel)
+        public static IEnumerable<PossibleAnswer> ToEntity(this CreateAnswerInputModel inputModel)
         {
             var model = new List<PossibleAnswer>(4);
 

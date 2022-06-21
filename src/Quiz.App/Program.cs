@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quiz.App.Infrastructure;
+using Quiz.App.Infrastructure.Notification;
 using Quiz.App.Infrastructure.Repositories;
-using Quiz.App.Models;
 using Quiz.App.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +42,10 @@ builder.Services.Configure<PasswordHasherOptions>(options =>
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICacheRepository<>), typeof(CacheRepository<>));
+builder.Services.AddScoped<IIdentityRepository, IdentityRepository>();
+
+builder.Services.AddScoped<INotificator, Notificator>();
+
 builder.Services.AddMemoryCache();
 
 var app = builder.Build();
@@ -66,14 +70,9 @@ using (var scope = app.Services.CreateScope())
 
         await context.SaveChangesAsync();
 
-        //todo: create identityService?
-        var userManager = services.GetRequiredService<UserManager<User>>();
-
-        var admin = new User("admin", "master", "admin");
-
-        await userManager.CreateAsync(admin, "Teste@123");
-
-        await userManager.AddToRoleAsync(admin, Roles.Admin);
+        var identityRepository = services.GetRequiredService<IIdentityRepository>();
+        
+        await identityRepository.Register(new User("admin", "master", "admin"), "Teste@123");
     }
 }
 

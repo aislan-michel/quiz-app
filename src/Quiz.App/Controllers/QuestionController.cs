@@ -54,13 +54,13 @@ namespace Quiz.App.Controllers
                 return View(inputModel);
             }
             
-            var question = inputModel.ToModel();
+            var entity = inputModel.ToEntity();
             
-            _repository.Add(question);
+            _repository.Add(entity);
 
             await _repository.SaveAsync();
 
-            return RedirectToAction("Create", "Answer", new {questionId = question.Id});
+            return RedirectToAction("Create", "Answer", new {questionId = entity.Id});
         }
 
         [HttpGet]

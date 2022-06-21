@@ -18,9 +18,9 @@ namespace Quiz.App.Models.InputModels
 
     public class GuidValidation : ValidationAttribute
     {
-        public override bool IsValid(object? value)
+        public override bool IsValid(object value)
         {
-            if (value == null || value is not Guid)
+            if (value is not Guid)
             {
                 return false;
             }

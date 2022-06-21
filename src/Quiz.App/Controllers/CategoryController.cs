@@ -44,9 +44,9 @@ namespace Quiz.App.Controllers
                 return View(inputModel);
             }
             
-            var model = inputModel.ToModel();
+            var entity = inputModel.ToEntity();
             
-            _categoryRepository.Add(model);
+            _categoryRepository.Add(entity);
 
             await _categoryRepository.SaveAsync();
 

@@ -1,24 +1,19 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Quiz.App.Extensions;
+using Quiz.App.Infrastructure.Notification;
+using Quiz.App.Infrastructure.Repositories;
 using Quiz.App.Models.InputModels;
-using Quiz.App.Models;
-using Quiz.App.Models.Entities;
 using Quiz.App.Models.Mappings;
 
 namespace Quiz.App.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly IIdentityRepository _identityRepository;
         
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
+        public AccountController(IIdentityRepository identityRepository, INotificator notificator) : base(notificator)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _identityRepository = identityRepository;
         }
 
         [HttpGet]
@@ -35,25 +30,24 @@ namespace Quiz.App.Controllers
                 return View(inputModel);
             }
 
-            var user = await _userManager.FindByNameAsync(inputModel.Username);
+            await _identityRepository.SignIn(inputModel.Username, inputModel.Password);
 
-            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Sid, user.Id));
-
-            var signInResult = await _signInManager.PasswordSignInAsync(inputModel.Username, inputModel.Password, false, false);
-
-            if (!signInResult.Succeeded)
+            if (!Notificator.HaveNotifications())
             {
-                ModelState.AddModelError("invalid", "login or password is invalid");
-
-                return View(inputModel);
+                return RedirectToAction("Index", "Home");   
             }
             
-            return RedirectToAction("Index", "Home");
+            foreach (var (key, value) in Notificator.Get())
+            {
+                ModelState.AddModelError(key, value);
+            }
+            
+            return View(inputModel);
         }
 
         public new async Task<IActionResult> SignOut()
         {
-            await _signInManager.SignOutAsync();
+            await _identityRepository.SignOut();
 
             return RedirectToAction(nameof(SignIn));
         }
@@ -72,21 +66,21 @@ namespace Quiz.App.Controllers
                 return View(inputModel);
             }
             
-            var user = inputModel.ToModel();
+            var entity = inputModel.ToEntity();
 
-            //todo: create identityService?
-            var created = await _userManager.CreateAsync(user, inputModel.Password);
-
-            if (!created.Succeeded)
+            await _identityRepository.Register(entity, inputModel.Password);
+            
+            if (!Notificator.HaveNotifications())
             {
-                ModelState.AddIdentityErrors(created.Errors);
-
-                return View(inputModel);
+                return RedirectToAction(nameof(SignIn));
+            }
+            
+            foreach (var (key, value) in Notificator.Get())
+            {
+                ModelState.AddModelError(key, value);
             }
 
-            await _userManager.AddToRoleAsync(user, Roles.Common);
-            
-            return RedirectToAction(nameof(SignIn));
+            return View(inputModel);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Quiz.App.Models.Mappings
 {
     public static class QuestionMapping
     {
-        public static Question ToModel(this CreateQuestionInputModel inputModel)
+        public static Question ToEntity(this CreateQuestionInputModel inputModel)
         {
             return new Question(
                 inputModel.Text, inputModel.Index, inputModel.CategoryId);
