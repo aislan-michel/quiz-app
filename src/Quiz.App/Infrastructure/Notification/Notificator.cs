@@ -19,6 +19,6 @@ public class Notificator : INotificator
 
     public bool HaveNotifications()
     {
-        return !_notifications.Any();
+        return _notifications.Any();
     }
 }

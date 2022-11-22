@@ -72,6 +72,8 @@ namespace Quiz.App.Controllers
             
             if (!Notificator.HaveNotifications())
             {
+                ModelState.AddModelError("Password", "dfsdf");
+                
                 return RedirectToAction(nameof(SignIn));
             }
             

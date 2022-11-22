@@ -17,10 +17,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<QuizDbContext>(options =>
 {
     var host = builder.Configuration["DBHOST"] ?? "localhost";
-    var port = builder.Configuration["DBPORT"] ?? "3306";
-    var password = builder.Configuration["DBPASSWORD"] ?? "201800459";
+    var port = builder.Configuration["DBPORT"] ?? "3308";
+    var password = builder.Configuration["DBPASSWORD"] ?? "numsey";
 
-    var connection = $"server={host};port={port};userid=root;password={password};database=quiz";
+    var connection = $"server={host};port={port};userid=root;password={password};database=quiz-db";
 
     options.UseMySql(connection, ServerVersion.AutoDetect(connection), optionsBuilder =>
     {
@@ -61,18 +61,24 @@ using (var scope = app.Services.CreateScope())
     if (pendingMigrations.Any())
     {
         await context.Database.MigrateAsync();
+
+        const string common = "common";
+        const string admin = "admin";
         
         context.Roles.AddRange(new List<IdentityRole>(2)
         {
-            new("common"),
-            new("admin")
+            new(common){NormalizedName = common.ToUpper()},
+            new(admin){NormalizedName = admin.ToUpper()}
         });
 
         await context.SaveChangesAsync();
 
-        var identityRepository = services.GetRequiredService<IIdentityRepository>();
+        var user = new User("admin", "master", "admin");
+
+        var userManager = services.GetRequiredService<UserManager<User>>();
         
-        await identityRepository.Register(new User("admin", "master", "admin"), "Teste@123");
+        await userManager.CreateAsync(user, "Teste@123");
+        await userManager.AddToRoleAsync(user, admin);
     }
 }
 
