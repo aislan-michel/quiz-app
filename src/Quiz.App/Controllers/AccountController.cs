@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.App.Infrastructure.Notification;
 using Quiz.App.Infrastructure.Repositories;
@@ -70,19 +71,14 @@ namespace Quiz.App.Controllers
 
             await _identityRepository.Register(entity, inputModel.Password);
             
-            if (!Notificator.HaveNotifications())
+            if (Notificator.HaveNotifications())
             {
-                ModelState.AddModelError("Password", "dfsdf");
-                
-                return RedirectToAction(nameof(SignIn));
-            }
-            
-            foreach (var (key, value) in Notificator.Get())
-            {
-                ModelState.AddModelError(key, value);
+                ModelState.AddModelError(Notificator.Get().FirstOrDefault().Key, Notificator.Get().FirstOrDefault().Value);
+                return View(inputModel);
             }
 
-            return View(inputModel);
+            return RedirectToAction(nameof(SignIn));
+
         }
     }
 }

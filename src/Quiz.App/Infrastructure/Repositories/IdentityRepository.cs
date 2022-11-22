@@ -45,11 +45,7 @@ public class IdentityRepository : IIdentityRepository
 
         if (!created.Succeeded)
         {
-            foreach (var error in created.Errors)
-            {
-                _notificator.Add(error.Code, error.Description);
-            }
-         
+            _notificator.Add("Password", "weak password");
             return;
         }
 
@@ -66,7 +62,7 @@ public class IdentityRepository : IIdentityRepository
 
         if (!signInResult.Succeeded)
         {
-            _notificator.Add("", "login or password is invalid");
+            _notificator.Add("Password", "login or password is invalid");
         }
     }
 
