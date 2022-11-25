@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -45,7 +46,7 @@ public class IdentityRepository : IIdentityRepository
 
         if (!created.Succeeded)
         {
-            _notificator.Add("Password", "weak password");
+            _notificator.Add("Password", string.Join("\n", created.Errors.Select(x => x.Description)));
             return;
         }
 
